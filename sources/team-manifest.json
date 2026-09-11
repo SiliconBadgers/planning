@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "description": "Pinned team-document snapshot for a standalone planning build. Component repositories remain authoritative.",
+  "components": {
+    "architecture": {
+      "owner_role": "Architecture and system direction",
+      "status": "working-starter"
+    },
+    "rtl-compute": {
+      "owner_role": "Compute datapaths",
+      "status": "working-starter"
+    },
+    "rtl-memory": {
+      "owner_role": "Memory and data movement",
+      "status": "scaffold"
+    },
+    "rtl-control": {
+      "owner_role": "Execution control and scheduling",
+      "status": "scaffold"
+    },
+    "soc": {
+      "owner_role": "SoC composition and system interfaces",
+      "status": "scaffold"
+    },
+    "ml-compiler": {
+      "owner_role": "ML compiler and runtime",
+      "status": "scaffold"
+    },
+    "ml-models": {
+      "owner_role": "ML models, workloads and numerical methods",
+      "status": "working-starter"
+    },
+    "verification": {
+      "owner_role": "Verification and confidence in the design",
+      "status": "working-starter"
+    },
+    "fpga": {
+      "owner_role": "FPGA prototyping and hardware exploration",
+      "status": "scaffold"
+    },
+    "physical-design": {
+      "owner_role": "Physical implementation and design feasibility",
+      "status": "scaffold"
+    },
+    "accelerator": {
+      "owner_role": "System integration and shared project understanding",
+      "status": "working-starter"
+    }
+  }
+}

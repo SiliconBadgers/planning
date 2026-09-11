@@ -1,0 +1,71 @@
+{
+  "verified_at": "2026-09-11T02:48:31.664670+00:00",
+  "repositories": {
+    "architecture": {
+      "url": "https://github.com/SiliconBadgers/architecture",
+      "commit": "4e67ed3711179c1500c5109defbad96447dfc7be",
+      "private": true,
+      "commits": 1
+    },
+    "rtl-compute": {
+      "url": "https://github.com/SiliconBadgers/rtl-compute",
+      "commit": "b25a309d4964b403fae2ab189d240eae47843a50",
+      "private": true,
+      "commits": 1
+    },
+    "rtl-memory": {
+      "url": "https://github.com/SiliconBadgers/rtl-memory",
+      "commit": "ac2d19fd0658765573108d07451aac4003f3211e",
+      "private": true,
+      "commits": 1
+    },
+    "rtl-control": {
+      "url": "https://github.com/SiliconBadgers/rtl-control",
+      "commit": "7d887052f1352a4246011476316bf918cf181335",
+      "private": true,
+      "commits": 1
+    },
+    "soc": {
+      "url": "https://github.com/SiliconBadgers/soc",
+      "commit": "40e39bdfa3c5b9d752a60975789b571303d793b9",
+      "private": true,
+      "commits": 1
+    },
+    "ml-compiler": {
+      "url": "https://github.com/SiliconBadgers/ml-compiler",
+      "commit": "394e5a30bad880c181ab5536b44e93d1106120ea",
+      "private": true,
+      "commits": 1
+    },
+    "ml-models": {
+      "url": "https://github.com/SiliconBadgers/ml-models",
+      "commit": "7b52b7e09be7b283bb62c04d042c9a7141613be6",
+      "private": true,
+      "commits": 1
+    },
+    "verification": {
+      "url": "https://github.com/SiliconBadgers/verification",
+      "commit": "039b0c94055be7a1ce38e9122e2c26b64f925d0e",
+      "private": true,
+      "commits": 1
+    },
+    "fpga": {
+      "url": "https://github.com/SiliconBadgers/fpga",
+      "commit": "dda9dd68e7ea9e64724169d325320f1ad0f82154",
+      "private": true,
+      "commits": 1
+    },
+    "physical-design": {
+      "url": "https://github.com/SiliconBadgers/physical-design",
+      "commit": "57a4bd4e49c6c81ea189683f76aa2c8ac644e056",
+      "private": true,
+      "commits": 1
+    },
+    "accelerator": {
+      "url": "https://github.com/SiliconBadgers/accelerator",
+      "commit": "070c21162baf32951afa0bf426217f41c633a640",
+      "private": true,
+      "commits": 1
+    }
+  }
+}

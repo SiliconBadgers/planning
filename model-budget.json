@@ -1,0 +1,175 @@
+{
+  "model_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+  "scope": "Text decoder, no vision or MTP execution",
+  "full_checkpoint_parameters": 2274069824,
+  "text_parameters": 1881825088,
+  "quantized_major_matrix_parameters": 1880096768,
+  "retained_precision_parameters": 1728320,
+  "matrix_macs_per_decode_token": {
+    "All 24 SwiGLU MLPs": 905969664,
+    "18 DeltaNet projection sets, including a/b": 378667008,
+    "Six gated full-attention projection sets": 88080384,
+    "Tied embedding / vocabulary output": 508559360
+  },
+  "other_text_parameters": 548672,
+  "weight_formats": [
+    {
+      "format": "INT4, group 128, BF16 scale",
+      "group_size": 128,
+      "bits_per_quantized_value": 4.125,
+      "payload_bytes": 940048384,
+      "scale_bytes": 29376512,
+      "retained_precision_bytes": 3461824,
+      "total_bytes": 972886720
+    },
+    {
+      "format": "INT4, group 64, BF16 scale",
+      "group_size": 64,
+      "bits_per_quantized_value": 4.25,
+      "payload_bytes": 940048384,
+      "scale_bytes": 58753024,
+      "retained_precision_bytes": 3461824,
+      "total_bytes": 1002263232
+    },
+    {
+      "format": "INT4, group 32, BF16 scale",
+      "group_size": 32,
+      "bits_per_quantized_value": 4.5,
+      "payload_bytes": 940048384,
+      "scale_bytes": 117506048,
+      "retained_precision_bytes": 3461824,
+      "total_bytes": 1061016256
+    },
+    {
+      "format": "MXFP4, group 32, E8M0 scale",
+      "group_size": 32,
+      "bits_per_quantized_value": 4.25,
+      "payload_bytes": 940048384,
+      "scale_bytes": 58753024,
+      "retained_precision_bytes": 3461824,
+      "total_bytes": 1002263232
+    },
+    {
+      "format": "NVFP4, group 16, E4M3 + tensor scale",
+      "group_size": 16,
+      "bits_per_quantized_value": 4.5,
+      "payload_bytes": 940048384,
+      "scale_bytes": 117506652,
+      "retained_precision_bytes": 3461824,
+      "total_bytes": 1061016860
+    }
+  ],
+  "contexts": [
+    {
+      "tokens": 2048,
+      "kv_bytes_bf16": 25165824,
+      "recurrent_bytes_fp32": 18874368,
+      "recurrent_bytes_16bit": 9437184,
+      "conv_bytes_bf16_four_slots": 884736,
+      "sequence_bytes_fp32_state": 44924928,
+      "decode_qk_av_macs": 50331648,
+      "decode_counted_macs": 1946206208
+    },
+    {
+      "tokens": 8192,
+      "kv_bytes_bf16": 100663296,
+      "recurrent_bytes_fp32": 18874368,
+      "recurrent_bytes_16bit": 9437184,
+      "conv_bytes_bf16_four_slots": 884736,
+      "sequence_bytes_fp32_state": 120422400,
+      "decode_qk_av_macs": 201326592,
+      "decode_counted_macs": 2097201152
+    },
+    {
+      "tokens": 32768,
+      "kv_bytes_bf16": 402653184,
+      "recurrent_bytes_fp32": 18874368,
+      "recurrent_bytes_16bit": 9437184,
+      "conv_bytes_bf16_four_slots": 884736,
+      "sequence_bytes_fp32_state": 422412288,
+      "decode_qk_av_macs": 805306368,
+      "decode_counted_macs": 2701180928
+    },
+    {
+      "tokens": 262144,
+      "kv_bytes_bf16": 3221225472,
+      "recurrent_bytes_fp32": 18874368,
+      "recurrent_bytes_16bit": 9437184,
+      "conv_bytes_bf16_four_slots": 884736,
+      "sequence_bytes_fp32_state": 3240984576,
+      "decode_qk_av_macs": 6442450944,
+      "decode_counted_macs": 8338325504
+    }
+  ],
+  "bandwidth_scenarios": [
+    {
+      "tokens": 2048,
+      "modeled_bytes_per_decode_token": 1065190080,
+      "upper_bound_tokens_per_second": {
+        "10": 9.387995802589524,
+        "25": 23.469989506473812,
+        "50": 46.939979012947624
+      },
+      "effective_gb_per_second_for_20_tokens_per_second": 21.3038016
+    },
+    {
+      "tokens": 8192,
+      "modeled_bytes_per_decode_token": 1140687552,
+      "upper_bound_tokens_per_second": {
+        "10": 8.766642524034486,
+        "25": 21.916606310086216,
+        "50": 43.83321262017243
+      },
+      "effective_gb_per_second_for_20_tokens_per_second": 22.81375104
+    },
+    {
+      "tokens": 32768,
+      "modeled_bytes_per_decode_token": 1442677440,
+      "upper_bound_tokens_per_second": {
+        "10": 6.931556370632648,
+        "25": 17.32889092658162,
+        "50": 34.65778185316324
+      },
+      "effective_gb_per_second_for_20_tokens_per_second": 28.8535488
+    }
+  ],
+  "prefill": [
+    {
+      "tokens": 2048,
+      "dense_macs_last_logits_only": 2811833090048,
+      "causal_qk_av_macs": 51564773376,
+      "serial_recurrence_macs": 28991029248,
+      "naive_one_layer_score_bytes_bf16": 67108864
+    },
+    {
+      "tokens": 8192,
+      "dense_macs_last_logits_only": 11245806682112,
+      "causal_qk_av_macs": 824734384128,
+      "serial_recurrence_macs": 115964116992,
+      "naive_one_layer_score_bytes_bf16": 1073741824
+    },
+    {
+      "tokens": 32768,
+      "dense_macs_last_logits_only": 44981701050368,
+      "causal_qk_av_macs": 13194542186496,
+      "serial_recurrence_macs": 463856467968,
+      "naive_one_layer_score_bytes_bf16": 17179869184
+    }
+  ],
+  "assumptions": [
+    "BF16 KV cache; FP32 recurrent state for bandwidth baseline",
+    "Four BF16 convolution slots per channel reserved",
+    "INT4 group 64 and BF16 scales for bandwidth baseline",
+    "Small a/b gate matrices, convolution and norms keep source precision",
+    "No zero-points, alignment padding, allocator reserve or duplicate layouts",
+    "No measured clock, power, quality or system throughput claim"
+  ],
+  "source_sha256": {
+    "qwen35-2b-config.json": "37a3ba065c72dfbc4b9dac25b21ea56279a0468d5161c9e4cfd4f165aa0a614d",
+    "qwen35-2b-model.json": "4a56026e62c330e851f37be514413b552568bbf2a99bd61efab11fa0ec3b7165",
+    "qwen35-2b-tensors.json": "730a8548261e32768896bb4df4be2d5257f9551d3f9b10b26f36dea63605b0cb",
+    "team-manifest.json": "a26d0a997afab0b9118fd86442224e494d578d3e39f381c196a160c195bdc257",
+    "transformers-reference.json": "2a087962fee58a672633825ea8a40a3c479101361a075f9d63a26055d3feb5f2",
+    "version-survey.json": "a6e97637dae0213687aaf0157239105c8d8980c32d23c046bed8c29f8d8f1945"
+  }
+}

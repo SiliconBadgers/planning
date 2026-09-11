@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/huggingface/transformers",
+  "commit": "5b7dcb0d36c242d8d85920a81c564ef3a86ca6dd",
+  "retrieved_on": "2026-09-10",
+  "file_url": "https://raw.githubusercontent.com/huggingface/transformers/5b7dcb0d36c242d8d85920a81c564ef3a86ca6dd/src/transformers/models/qwen3_5/modeling_qwen3_5.py",
+  "sha256": "762feb6c7426a7f15b5bf830df54c07438bf9e7c27b8cdb23179045920412c3b",
+  "status": "Inspected implementation, not an installed and executed runtime"
+}

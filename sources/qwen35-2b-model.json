@@ -1,0 +1,29 @@
+{
+  "id": "Qwen/Qwen3.5-2B",
+  "sha": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+  "lastModified": "2026-03-02T11:26:29.000Z",
+  "safetensors": {
+    "parameters": {
+      "F32": 2592,
+      "BF16": 2274067232
+    },
+    "total": 2274069824
+  },
+  "retrieved_on": "2026-09-10",
+  "config_url": "https://huggingface.co/Qwen/Qwen3.5-2B/blob/15852e8c16360a2fea060d615a32b45270f8a8fc/config.json",
+  "files": [
+    ".gitattributes",
+    "LICENSE",
+    "README.md",
+    "chat_template.jinja",
+    "config.json",
+    "merges.txt",
+    "model.safetensors-00001-of-00001.safetensors",
+    "model.safetensors.index.json",
+    "preprocessor_config.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "video_preprocessor_config.json",
+    "vocab.json"
+  ]
+}

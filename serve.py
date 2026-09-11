@@ -1,0 +1,14 @@
+"""Serve the local master-plan document on a loopback-only HTTP address."""
+from functools import partial
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+
+
+if __name__ == '__main__':
+    handler = partial(SimpleHTTPRequestHandler, directory=str(Path(__file__).resolve().parent))
+    with ThreadingHTTPServer(('127.0.0.1', 0), handler) as server:
+        print(f'Local master plan: http://127.0.0.1:{server.server_port}/', flush=True)
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            pass
