@@ -1,5 +1,7 @@
 # SiliconBadgers project master plan
 
+**Current coordination:** Read [the September 22 team packet](docs/team-start.md) for the current repositories, Mermaid diagram, llama.cpp evidence and parallel investigations. The eleven-team organization and charter library below describe the September 10 snapshot. Software now replaces ML Models/ML Compiler responsibilities; there is no separate FPGA team. Historical technical proposals below are not newly adopted interfaces.
+
 A technical and organizational plan for a Qwen3.5-2B accelerator with four-bit weights, shared by eleven teams whose members choose their contributions.
 
 **Status:** Working draft 0.2, technical baseline researched September 10, 2026. Qwen3.5-2B is the concrete checkpoint within the requested Qwen 3.5 through 3.7, approximately 2B direction. Four-bit weights are the target; INT4 versus FP4 and the other numerical formats remain explicit design questions. Checkpoint facts, project decisions, proposed experiments and analytical estimates are distinguished throughout. Each repository remains the authority for its own charter and accepted technical material.

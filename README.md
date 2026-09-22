@@ -1,10 +1,16 @@
 # SiliconBadgers planning
 
+## Current team starting material
+
+Read the [starting guide](docs/team-start.md) for the current diagram, source evidence, parallel investigations and first useful outputs.
+
 The shared technical and organizational plan for a Qwen3.5-2B accelerator with
 four-bit weights. It brings together inference-stage tradeoffs, numerical
-choices, resource budgets and the charters of eleven engineering teams.
+choices, resource budgets and the historical September 10 charter snapshots.
+The [current team packet](docs/team-start.md) maps today's nine engineering repositories and parallel investigations.
 
-**Start with [the complete plan](PLAN.md).** The baseline is Qwen3.5-2B;
+**Start with [current team investigations](docs/team-start.md).** The
+[September 10 plan](PLAN.md) supplies historical technical context. The baseline is Qwen3.5-2B;
 INT4, MXFP4 and NVFP4 are explicit alternatives. Performance figures are
 analytical estimates until supported by measured evidence.
 
