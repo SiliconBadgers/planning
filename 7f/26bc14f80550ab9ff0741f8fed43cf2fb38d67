@@ -1,0 +1,31 @@
+README.md
+  s_a4fdefbacc4ddc::t_e049e8076b2371 3-6,9-10,12-13
+PLAN.md
+  s_a4fdefbacc4ddc::t_e049e8076b2371 3-4
+plan-source.md
+  s_a4fdefbacc4ddc::t_e049e8076b2371 3-4
+.github/CODEOWNERS
+  s_a4fdefbacc4ddc::t_e049e8076b2371 1-2
+index.html
+  s_a4fdefbacc4ddc::t_e049e8076b2371 32-33
+docs/team-start.md
+  s_a4fdefbacc4ddc::t_e049e8076b2371 1-81
+source-hashes.json
+  s_a4fdefbacc4ddc::t_e049e8076b2371 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7f26bc14f80550ab9ff0741f8fed43cf2fb38d67",
+  "prompts": {},
+  "sessions": {
+    "s_a4fdefbacc4ddc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0c6c2-231a-7a30-bbf3-f68a9d08902d",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "abhinavnandwani <abhu.srt@gmail.com>"
+    }
+  }
+}
