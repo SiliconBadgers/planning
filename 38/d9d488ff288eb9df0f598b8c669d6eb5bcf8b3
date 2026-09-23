@@ -1,0 +1,21 @@
+docs/git-ai.md
+  s_a4fdefbacc4ddc::t_f7e4553f983e0f 78-84
+docs/team-start.md
+  s_a4fdefbacc4ddc::t_f7e4553f983e0f 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "38d9d488ff288eb9df0f598b8c669d6eb5bcf8b3",
+  "prompts": {},
+  "sessions": {
+    "s_a4fdefbacc4ddc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0c6c2-231a-7a30-bbf3-f68a9d08902d",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "abhinavnandwani <abhu.srt@gmail.com>"
+    }
+  }
+}
