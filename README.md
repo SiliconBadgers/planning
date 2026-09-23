@@ -1,38 +1,34 @@
-# SiliconBadgers planning
+# Planning and current team work
 
-## Current team starting material
+Track current assignments and accepted decisions while preserving the dated technical plan, model budgets and original charter snapshots as historical evidence.
 
-Read the [starting guide](docs/team-start.md) for the current diagram, source evidence, parallel investigations and first useful outputs.
+## Start here
 
-The shared technical and organizational plan for a Qwen3.5-2B accelerator with
-four-bit weights. It brings together inference-stage tradeoffs, numerical
-choices, resource budgets and the historical September 10 charter snapshots.
-The [current team packet](docs/team-start.md) maps today's nine engineering repositories and parallel investigations.
+1. Read [the current assignment and artifact locations](docs/START-HERE.md).
+2. Complete [AI setup and the capture check](docs/git-ai.md) before AI edits or
+   your first commit. Every clone needs its local hook activated.
+3. Work on a branch and open a PR for `@abhinavnandwani` using
+   [CONTRIBUTING.md](CONTRIBUTING.md). Main requires a code-owner approval;
+   admins can bypass.
 
-**Start with [current team investigations](docs/team-start.md).** The
-[September 10 plan](PLAN.md) supplies historical technical context. The baseline is Qwen3.5-2B;
-INT4, MXFP4 and NVFP4 are explicit alternatives. Performance figures are
-analytical estimates until supported by measured evidence.
+## Repository structure
 
-| Material | Where to find it |
+| Location | Purpose |
 |---|---|
-| Complete readable plan | [PLAN.md](PLAN.md) |
-| Offline HTML reader | [index.html](index.html), opened locally after cloning |
-| Technical discussion source | [technical-plan.md](technical-plan.md) |
-| Organizational direction source | [plan-source.md](plan-source.md) |
-| Calculated budgets and assumptions | [budget-tables.md](budget-tables.md) and [model-budget.json](model-budget.json) |
-| Calculation implementation | [model_budget.py](model_budget.py) |
-| Checkpoint and reference provenance | [sources/README.md](sources/README.md) |
-| Included team charter snapshots | [sources/team-charters/README.md](sources/team-charters/README.md) |
+| [docs/](docs/README.md) | Current team map and planning updates. Historical plan sources and snapshots remain at their existing locations. |
 
-The plan supplies context and high-level objectives. Members choose their
-contributions, which can include research, design reasoning, experiments,
-implementation, documentation and teaching. Each team's repository remains
-authoritative for its own charter and accepted technical work.
+## Current material and scope
 
-## Read and rebuild
+The historical plan and offline reader are reproducible. The current team map supersedes historical organization guidance for active assignments.
 
-Clone this private repository using your organization access:
+[Shared diagram](https://github.com/SiliconBadgers/architecture/blob/main/docs/accelerator-diagram.md) · [Software evidence](https://github.com/SiliconBadgers/software/tree/main/experiments/llama-cpp/2026-09-22)
+
+Read [the current seven-team map](docs/team-start.md). The [dated plan](PLAN.md),
+[technical source](technical-plan.md), [organization source](plan-source.md),
+[budgets](budget-tables.md), and [source snapshots](sources/README.md) preserve
+historical context. The eleven-charter snapshot is not today's team structure.
+
+## Rebuild the historical plan
 
 ```sh
 gh repo clone SiliconBadgers/planning
@@ -41,48 +37,7 @@ python3 build.py
 python3 serve.py
 ```
 
-Python 3.11 or newer is the only build dependency. Open the loopback address
-printed by `serve.py`; press Ctrl+C to stop it. The server binds only to
-`127.0.0.1`. You can also open `index.html` directly from disk. GitHub displays
-the HTML source, so use `PLAN.md` to read the plan on GitHub.
-
-The HTML contains its styles and scripts and works offline. It includes chapter
-navigation, a searchable library of all eleven charters, expand/collapse,
-Markdown download and print/PDF support. Links to private source repositories
-require access. The local preview server provides no public hosting.
-
-The build uses included source files and pinned snapshots. No sibling checkout,
-model weights, package installation or network connection is needed to rebuild.
-It regenerates `PLAN.md`, `index.html`, `model-budget.json`, `budget-tables.md`
-and `source-hashes.json`.
-
-## Develop the plan
-
-Edit `technical-plan.md` for the Qwen baseline, inference stages, numerical
-tradeoffs and hardware discussion. Edit `plan-source.md` for organization,
-team objectives and shared decisions. Placeholders assemble the technical
-chapters, calculated tables, charter library and recorded revision table.
-Edit `reader.css` or `reader.js` to change the HTML reader, then rebuild.
-
-Run `python3 build.py`, inspect the readable outputs, and include both the
-edited sources and regenerated files in a proposed revision. Direct edits to
-generated files are replaced on the next build. Keep facts, adopted decisions,
-proposals and estimates clearly distinguished, and retain source attribution.
-
-The renderer supports headings, paragraphs, links, inline code and bold, flat
-lists, tables and fenced code. Embedded HTML is escaped. The builder and local
-server do not create commits, push changes or deploy the reading view.
-
-## Maintain provenance
-
-`repository-snapshot.json` records the eleven team repositories at their
-verified initial revisions. It describes those revisions, not the current
-history of every repository. The included charter/objective files and
-`sources/team-manifest.json` make this repository independently rebuildable.
-See [snapshot maintenance](sources/team-charters/README.md) before refreshing
-them. This repository is the separate planning home, not a twelfth team charter.
-
-`source-hashes.json` records the plan and charter inputs used by the latest
-build. `model-budget.json` also records hashes of source metadata. Refresh the
-model configuration, tensor inventory, calculations and affected contracts
-together when adopting another checkpoint or numerical policy.
+Python 3.11+ is sufficient; no model weights or network are needed for the build.
+The server binds to 127.0.0.1 only. Edit the source Markdown or reader assets, run
+`build.py`, and include regenerated PLAN.md, index.html, budgets and hashes in
+the PR. Preserve provenance in repository-snapshot.json and sources/.
