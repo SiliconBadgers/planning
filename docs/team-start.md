@@ -22,7 +22,7 @@ and Control while the wider profiling work continues.
 
 - [Central diagram](https://github.com/SiliconBadgers/architecture/blob/main/docs/accelerator-diagram.md); the four compute boxes are provisional.
 - [Software evidence and reproduction](https://github.com/SiliconBadgers/software/tree/main/experiments/llama-cpp/2026-09-22).
-- [Slide maps](https://github.com/SiliconBadgers/architecture/blob/codex/register-map-baseline/docs/register-maps.md), preserved as a baseline in [architecture PR #2](https://github.com/SiliconBadgers/architecture/pull/2).
+- [Slide maps](https://github.com/SiliconBadgers/architecture/blob/main/docs/register-maps.md), preserved as a baseline from [architecture PR #2](https://github.com/SiliconBadgers/architecture/pull/2).
 - `architecture` owns shared diagrams/contracts and decisions. `soc` and
   `accelerator` support composition/integration; they are not extra active teams.
 - `planning` keeps this map and the historical plan. These seven active-team
