@@ -34,16 +34,12 @@ All ten core repositories are public. Main requires one code-owner approval
 from @abhinavnandwani, with admin bypass enabled. Accept any pending invitation,
 check branch push access, and work through PRs for review.
 
-Each clone needs its tracked commit guard activated. Before AI edits or the
-first commit, follow that repo's docs/git-ai.md. Configure capture, restart Codex,
-verify an actual edit, and keep line attribution and visible co-author credit.
-
 ## Progress and evidence
 
 The diagram and recorded Software profiling package exist. The register maps
-are a slide baseline, not a frozen ABI. Repo folders, templates and contributor
-checks organize the next work; they do not complete the open research, controller,
-verification or synthesis issues. Synopsys runs and full accelerator results are
+are a slide baseline, not a frozen ABI. Repo folders and templates organize the
+next work; they do not complete the open research, controller, verification or
+synthesis issues. Synopsys runs and full accelerator results are
 not claimed by the scaffold refresh.
 
 Publish intermediate results with source revisions, commands, inputs, tool
