@@ -1845,7 +1845,7 @@ Repository snapshot checked September 10, 2026 at 09:48 PM CDT.
 | physical-design | [57a4bd4e49](https://github.com/SiliconBadgers/physical-design/commit/57a4bd4e49c6c81ea189683f76aa2c8ac644e056) | Private | 1 |
 | accelerator | [070c21162b](https://github.com/SiliconBadgers/soc/commit/070c21162baf32951afa0bf426217f41c633a640) | Private | 1 |
 
-The [published repository index](https://github.com/SiliconBadgers/soc/blob/main/docs/REPOSITORIES.md), [team guide](https://github.com/SiliconBadgers/soc/blob/main/docs/TEAM_GUIDE.md) and [example validation](https://github.com/SiliconBadgers/soc/blob/main/docs/VALIDATION.md) provide the shared source material. The companion `repository-snapshot.json` records this document’s repository check.
+The [published repository index](https://github.com/SiliconBadgers/soc/blob/main/docs/REPOSITORIES.md), [team guide](https://github.com/SiliconBadgers/soc/blob/main/CONTRIBUTING.md) and [example validation](https://github.com/SiliconBadgers/soc/blob/main/experiments/2026-09-29-control-integration/README.md) provide the shared source material. The companion `repository-snapshot.json` records this document’s repository check.
 
 This master plan lives in the private [SiliconBadgers planning repository](https://github.com/SiliconBadgers/planning), alongside its editable sources, calculations and pinned charter snapshots. The Markdown is the complete readable export, and the HTML is its browsable reading view. A fresh clone can rebuild both using Python without sibling repositories or network access. Running the builder updates local generated files; sharing a revision uses an ordinary reviewed Git commit and push.
 
