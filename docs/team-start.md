@@ -23,14 +23,15 @@ and Control while the wider profiling work continues.
 - [Central diagram](https://github.com/SiliconBadgers/architecture/blob/main/docs/accelerator-diagram.md); the four compute boxes are provisional.
 - [Software evidence and reproduction](https://github.com/SiliconBadgers/software/tree/main/experiments/llama-cpp/2026-09-22).
 - [Slide maps](https://github.com/SiliconBadgers/architecture/blob/main/docs/register-maps.md), preserved as a baseline from [architecture PR #2](https://github.com/SiliconBadgers/architecture/pull/2).
-- `architecture` owns shared diagrams/contracts and decisions. `soc` and
-  `accelerator` support composition/integration; they are not extra active teams.
+- `architecture` owns shared diagrams/contracts and decisions. `accelerator` owns consolidated SoC composition and the pinned integration
+  workspace; it is not an extra active team. `soc` preserves the former workspace
+  history and redirects new integration work to Accelerator.
 - `planning` keeps this map and the historical plan. These seven active-team
-  homes plus `soc`, `accelerator` and `planning` form ten core repositories.
+  homes plus `accelerator` and `planning` form nine active core repositories.
 
 ## Before contributing
 
-All ten core repositories are public. Main requires one code-owner approval
+All nine active core repositories are public. Main requires one code-owner approval
 from @abhinavnandwani, with admin bypass enabled. Accept any pending invitation,
 check branch push access, and work through PRs for review.
 
