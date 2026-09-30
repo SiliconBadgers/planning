@@ -1,0 +1,25 @@
+PLAN.md
+  s_5b555a9f3bd0b8::t_f67937307512e7 1711,1769-1770,1780,1846,1848
+docs/team-start.md
+  s_5b555a9f3bd0b8::t_c67959f2ef4130 26-28,30
+plan-source.md
+  s_5b555a9f3bd0b8::t_618051761b6108 199
+sources/team-charters/accelerator/README.md
+  s_5b555a9f3bd0b8::t_e4b4bcfd3d295c 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5b68dbedaf86fb3758332987aa87d8229bfc32b1",
+  "prompts": {},
+  "sessions": {
+    "s_5b555a9f3bd0b8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d977-3795-73c0-aaed-6767eaef473e",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "abhinavnandwani <abhu.srt@gmail.com>"
+    }
+  }
+}
