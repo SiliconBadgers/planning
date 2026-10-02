@@ -196,7 +196,7 @@ The initial repository publication was checked for private visibility, exactly o
 
 {{SNAPSHOT_TABLE}}
 
-The [published repository index](https://github.com/SiliconBadgers/accelerator/blob/main/docs/REPOSITORIES.md), [team guide](https://github.com/SiliconBadgers/accelerator/blob/main/docs/TEAM_GUIDE.md) and [example validation](https://github.com/SiliconBadgers/accelerator/blob/main/docs/VALIDATION.md) provide the shared source material. The companion `repository-snapshot.json` records this document’s repository check.
+The [published repository index](https://github.com/SiliconBadgers/soc/blob/main/docs/REPOSITORIES.md), [team guide](https://github.com/SiliconBadgers/soc/blob/main/CONTRIBUTING.md) and [example validation](https://github.com/SiliconBadgers/soc/blob/main/experiments/2026-09-29-control-integration/README.md) provide the shared source material. The companion `repository-snapshot.json` records this document’s repository check.
 
 This master plan lives in the private [SiliconBadgers planning repository](https://github.com/SiliconBadgers/planning), alongside its editable sources, calculations and pinned charter snapshots. The Markdown is the complete readable export, and the HTML is its browsable reading view. A fresh clone can rebuild both using Python without sibling repositories or network access. Running the builder updates local generated files; sharing a revision uses an ordinary reviewed Git commit and push.
 

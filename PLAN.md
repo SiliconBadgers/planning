@@ -1708,7 +1708,7 @@ better served.
 
 ### Team: accelerator
 
-[Open repository](https://github.com/SiliconBadgers/accelerator) | [Source charter](https://github.com/SiliconBadgers/accelerator/blob/070c21162baf32951afa0bf426217f41c633a640/CHARTER.md) | [Source objectives](https://github.com/SiliconBadgers/accelerator/blob/070c21162baf32951afa0bf426217f41c633a640/OBJECTIVES.md)
+[Open repository](https://github.com/SiliconBadgers/soc) | [Source charter](https://github.com/SiliconBadgers/soc/blob/070c21162baf32951afa0bf426217f41c633a640/CHARTER.md) | [Source objectives](https://github.com/SiliconBadgers/soc/blob/070c21162baf32951afa0bf426217f41c633a640/OBJECTIVES.md)
 
 #### Purpose
 
@@ -1766,8 +1766,8 @@ code changes or completed tickets.
 
 The team can revise this charter as its understanding evolves. Changes to a
 shared boundary or commitment are discussed with the teams affected by them.
-The [objectives](https://github.com/SiliconBadgers/accelerator/blob/070c21162baf32951afa0bf426217f41c633a640/OBJECTIVES.md) describe durable outcomes, and the
-[repository structure](https://github.com/SiliconBadgers/accelerator/blob/070c21162baf32951afa0bf426217f41c633a640/README.md#repository-structure) provides places to develop
+The [objectives](https://github.com/SiliconBadgers/soc/blob/070c21162baf32951afa0bf426217f41c633a640/OBJECTIVES.md) describe durable outcomes, and the
+[repository structure](https://github.com/SiliconBadgers/soc/blob/070c21162baf32951afa0bf426217f41c633a640/README.md#repository-structure) provides places to develop
 work without specifying a mandatory project or sequence.
 
 #### High-level objectives
@@ -1777,7 +1777,7 @@ choose which questions to pursue, the approach, the scale and the contribution
 format. The order is not a priority ranking, and the examples of evidence are
 illustrative. They are not a checklist, required deliverables or assignments.
 
-Read the [charter](https://github.com/SiliconBadgers/accelerator/blob/070c21162baf32951afa0bf426217f41c633a640/CHARTER.md) for scope and shared decision boundaries.
+Read the [charter](https://github.com/SiliconBadgers/soc/blob/070c21162baf32951afa0bf426217f41c633a640/CHARTER.md) for scope and shared decision boundaries.
 
 ##### A coherent system view
 
@@ -1843,9 +1843,9 @@ Repository snapshot checked September 10, 2026 at 09:48 PM CDT.
 | verification | [039b0c9405](https://github.com/SiliconBadgers/verification/commit/039b0c94055be7a1ce38e9122e2c26b64f925d0e) | Private | 1 |
 | fpga | [dda9dd68e7](https://github.com/SiliconBadgers/fpga/commit/dda9dd68e7ea9e64724169d325320f1ad0f82154) | Private | 1 |
 | physical-design | [57a4bd4e49](https://github.com/SiliconBadgers/physical-design/commit/57a4bd4e49c6c81ea189683f76aa2c8ac644e056) | Private | 1 |
-| accelerator | [070c21162b](https://github.com/SiliconBadgers/accelerator/commit/070c21162baf32951afa0bf426217f41c633a640) | Private | 1 |
+| accelerator | [070c21162b](https://github.com/SiliconBadgers/soc/commit/070c21162baf32951afa0bf426217f41c633a640) | Private | 1 |
 
-The [published repository index](https://github.com/SiliconBadgers/accelerator/blob/main/docs/REPOSITORIES.md), [team guide](https://github.com/SiliconBadgers/accelerator/blob/main/docs/TEAM_GUIDE.md) and [example validation](https://github.com/SiliconBadgers/accelerator/blob/main/docs/VALIDATION.md) provide the shared source material. The companion `repository-snapshot.json` records this document’s repository check.
+The [published repository index](https://github.com/SiliconBadgers/soc/blob/main/docs/REPOSITORIES.md), [team guide](https://github.com/SiliconBadgers/soc/blob/main/CONTRIBUTING.md) and [example validation](https://github.com/SiliconBadgers/soc/blob/main/experiments/2026-09-29-control-integration/README.md) provide the shared source material. The companion `repository-snapshot.json` records this document’s repository check.
 
 This master plan lives in the private [SiliconBadgers planning repository](https://github.com/SiliconBadgers/planning), alongside its editable sources, calculations and pinned charter snapshots. The Markdown is the complete readable export, and the HTML is its browsable reading view. A fresh clone can rebuild both using Python without sibling repositories or network access. Running the builder updates local generated files; sharing a revision uses an ordinary reviewed Git commit and push.
 

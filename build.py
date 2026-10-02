@@ -24,7 +24,9 @@ MANIFEST = json.loads((ROOT / 'sources/team-manifest.json').read_text())['compon
 
 def github_link(name, path=''):
     record = SNAPSHOT['repositories'][name]
-    return record['url'] + ('/blob/' + record['commit'] + '/' + path if path else '')
+    # Accelerator's original commits are preserved in SoC's archive branch.
+    url = 'https://github.com/SiliconBadgers/soc' if name == 'accelerator' else record['url']
+    return url + ('/blob/' + record['commit'] + '/' + path if path else '')
 
 
 def import_doc(name, filename, shift):
