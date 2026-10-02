@@ -1,7 +1,9 @@
 # rtl-compute charter snapshot
 
-Read the included [charter](CHARTER.md) and [objectives](OBJECTIVES.md), copied
-exactly from the revision recorded in the planning repository's snapshot.
+Read the included [charter](CHARTER.md) and [objectives](OBJECTIVES.md), retained
+from the revision recorded in the planning snapshot, with control and memory
+repository labels normalized to area names. The recorded commit contains the
+exact original text.
 This README is a navigation aid for the planning copy.
 
 ## Repository structure

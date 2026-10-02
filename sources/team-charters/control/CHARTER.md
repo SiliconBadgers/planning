@@ -26,7 +26,7 @@ Maintain useful state diagrams, scheduling analyses, interface models, design ra
 
 ## Boundaries and shared decisions
 
-rtl-control owns execution sequencing across accelerator operations. soc owns host-facing access, register/address decoding and system wiring; rtl-memory owns access and transfer machinery; rtl-compute owns arithmetic and internal datapath timing. Architecture stewards shared execution semantics with these teams. The control/SoC boundary must make configuration, launch, status and error ownership explicit without merging their charters.
+control owns execution sequencing across accelerator operations. soc owns host-facing access, register/address decoding and system wiring; memory owns access and transfer machinery; rtl-compute owns arithmetic and internal datapath timing. Architecture stewards shared execution semantics with these teams. The control/SoC boundary must make configuration, launch, status and error ownership explicit without merging their charters.
 
 ## Member autonomy
 
@@ -37,7 +37,7 @@ Members can choose to study scheduling strategies, model dependencies, examine d
 | Partners | Shared concerns |
 |---|---|
 | architecture and ml-compiler | Connect intended operation semantics and software expectations to a realizable execution model. |
-| rtl-compute and rtl-memory | Agree on operation requests, resource availability, responses and the assumptions required for progress. |
+| rtl-compute and memory | Agree on operation requests, resource availability, responses and the assumptions required for progress. |
 | soc and verification | Clarify the host-to-execution boundary and collaborate on observations that demonstrate correct ordering, progress and recovery. |
 
 ## Possible directions

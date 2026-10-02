@@ -1,6 +1,7 @@
 # SiliconBadgers project master plan
 
-**Current coordination:** Read [the September 22 team packet](docs/team-start.md) for the current repositories, Mermaid diagram, llama.cpp evidence and parallel investigations. The eleven-team organization and charter library below describe the September 10 snapshot. Software now replaces ML Models/ML Compiler responsibilities; there is no separate FPGA team. Historical technical proposals below are not newly adopted interfaces.
+**Current coordination:** Read [the current team packet](docs/team-start.md) for the current repositories, Mermaid diagram, llama.cpp evidence and parallel investigations. The eleven-team organization and charter library below describe the September 10 snapshot. Software now replaces ML Models/ML Compiler responsibilities; there is no separate FPGA team. Control and memory labels below identify historical areas whose source commits
+now live in RTL. Historical technical proposals below are not newly adopted interfaces.
 
 A technical and organizational plan for a Qwen3.5-2B accelerator with four-bit weights, shared by eleven teams whose members choose their contributions.
 
@@ -25,7 +26,7 @@ Earlier Qwen-oriented accelerator work provides material for architectural explo
 | Model direction | Qwen 3.5 through 3.7 at approximately 2B, with Qwen/Qwen3.5-2B pinned as the concrete baseline. |
 | Compression direction | Four-bit weights. INT4 and defined FP4 candidates will be compared; activations, state and cache precision are separate decisions. |
 | Organization | The eleven team repositories belong to SiliconBadgers and are private. The separate `planning` repository houses this shared plan. |
-| Repository structure | Hardware responsibilities use `rtl-compute`, `rtl-memory`, `rtl-control` and `soc`. Machine-learning work uses `ml-compiler` and `ml-models`. |
+| Repository structure | Hardware responsibilities use `rtl-compute`, `memory`, `control` and `soc`. Machine-learning work uses `ml-compiler` and `ml-models`. |
 | Team direction | A detailed charter and high-level objectives define each team’s purpose. Members choose their contributions. |
 | Leadership | Leads facilitate learning, context and collaboration. The organizing model is not an assigned queue of coding or infrastructure tickets. |
 | Shared boundaries | Teams agree together on behavior that others depend on. Each accepted specification or implementation has one authoritative home. |
@@ -49,7 +50,7 @@ Five repositories participate in the runnable example. This is an inventory of s
 
 The published example passed four model tests, 261 golden vectors and 131,600 RTL checks from fresh GitHub clones. Directed checks include signed arithmetic, hold, clear priority, reset and wraparound. Wrong, empty and truncated vector inputs were rejected during the source validation.
 
-`soc`, `rtl-memory`, `rtl-control`, `ml-compiler`, `fpga` and `physical-design` have charters, objectives and scaffolds, with no supplied component implementation. Their placeholder test commands report that state. Research and design contributions are assessed through their reasoning and evidence, independently of whether a component has an executable test target.
+`soc`, `memory`, `control`, `ml-compiler`, `fpga` and `physical-design` have charters, objectives and scaffolds, with no supplied component implementation. Their placeholder test commands report that state. Research and design contributions are assessed through their reasoning and evidence, independently of whether a component has an executable test target.
 
 There is no validated full-model inference system, integrated control/memory/SoC implementation, compiler, board demonstration or ASIC physical implementation in these new repositories. The broader reference codebase has not been fully migrated. GitHub CI and additional operating-system environments have not been established by the current example checks.
 
@@ -71,8 +72,8 @@ These are durable technical objectives and questions that teams can explore. The
 |---|---|---|
 | `architecture` | Make the hybrid decoder and its system assumptions coherent | What scope, numerical contracts and resource envelope support a defensible complete result? |
 | `rtl-compute` | Understand and realize useful arithmetic across dense, attention and recurrent work | How should matrix, vector and state operations share resources? What does INT4 or FP4 cost at equal quality? |
-| `rtl-memory` | Make weights, scales and per-request state available at the needed rate | Which residency, packing, banking and transfer policies explain the measured bandwidth? |
-| `rtl-control` | Make prefill, decode and context transitions progress predictably | What dependencies and scheduling policies balance utilization, responsiveness and correct state updates? |
+| `memory` | Make weights, scales and per-request state available at the needed rate | Which residency, packing, banking and transfer policies explain the measured bandwidth? |
+| `control` | Make prefill, decode and context transitions progress predictably | What dependencies and scheduling policies balance utilization, responsiveness and correct state updates? |
 | `soc` | Compose an observable, usable accelerator system | What host and memory interfaces, reset behavior and platform boundaries let the blocks work together? |
 | `ml-compiler` | Express the model faithfully in executable artifacts and schedules | What export format, tiling and runtime abstraction preserve semantics while exposing hardware reuse? |
 | `ml-models` | Establish the workload and the quality consequences of approximation | Which INT4/FP4 policies, activation formats and recurrent-state choices preserve useful behavior? |
@@ -193,6 +194,9 @@ Format and algorithm discussions link primary sources where used: OCP for MXFP4,
 ### Repository evidence
 
 The initial repository publication was checked for private visibility, exactly one commit per repository and the configured project author. Fresh GitHub clones matched the reviewed source files and passed the MAC example. Repository descriptions were subsequently edited without changing the commits.
+
+Control and memory use area names below. Their original source commits are preserved
+in the combined RTL repository; historical visibility and commit counts are unchanged.
 
 {{SNAPSHOT_TABLE}}
 

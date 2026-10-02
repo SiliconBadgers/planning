@@ -13,14 +13,14 @@
       "private": true,
       "commits": 1
     },
-    "rtl-memory": {
-      "url": "https://github.com/SiliconBadgers/rtl-memory",
+    "memory": {
+      "url": "https://github.com/SiliconBadgers/rtl",
       "commit": "ac2d19fd0658765573108d07451aac4003f3211e",
       "private": true,
       "commits": 1
     },
-    "rtl-control": {
-      "url": "https://github.com/SiliconBadgers/rtl-control",
+    "control": {
+      "url": "https://github.com/SiliconBadgers/rtl",
       "commit": "7d887052f1352a4246011476316bf918cf181335",
       "private": true,
       "commits": 1
@@ -67,5 +67,6 @@
       "private": true,
       "commits": 1
     }
-  }
+  },
+  "link_preservation_note": "Control and memory are historical area aliases. Their recorded commits, visibility and counts are unchanged; source URLs point to those exact commits preserved in the combined RTL repository."
 }

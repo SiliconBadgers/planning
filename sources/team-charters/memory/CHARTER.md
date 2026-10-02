@@ -26,7 +26,7 @@ Investigate bandwidth demand, contention, reuse and physical storage constraints
 
 ## Boundaries and shared decisions
 
-rtl-memory owns the storage subsystem and its access services. rtl-control decides when accelerator operations request those services; rtl-compute owns local arithmetic behavior; soc connects subsystem and host interfaces. Architecture coordinates the shared address and data model. Physical-design informs storage implementation options, and FPGA owns the board-specific adaptation of external memory resources. Exact routing and protocol boundaries are agreed where these responsibilities meet.
+memory owns the storage subsystem and its access services. control decides when accelerator operations request those services; rtl-compute owns local arithmetic behavior; soc connects subsystem and host interfaces. Architecture coordinates the shared address and data model. Physical-design informs storage implementation options, and FPGA owns the board-specific adaptation of external memory resources. Exact routing and protocol boundaries are agreed where these responsibilities meet.
 
 ## Member autonomy
 
@@ -37,7 +37,7 @@ Members may investigate access patterns, compare banking approaches, examine buf
 | Partners | Shared concerns |
 |---|---|
 | architecture and ml-models | Use workload dimensions, layouts and access patterns to examine what the storage system needs to support. |
-| rtl-control, rtl-compute and soc | Exchange request patterns and interface assumptions; clarify ordering, contention and response behavior at subsystem boundaries. |
+| control, rtl-compute and soc | Exchange request patterns and interface assumptions; clarify ordering, contention and response behavior at subsystem boundaries. |
 | verification, fpga and physical-design | Work together on correctness evidence and on the gap between an abstract storage model and an actual target implementation. |
 
 ## Possible directions

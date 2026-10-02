@@ -37,7 +37,7 @@ Members can investigate programming abstractions, study lowering strategies, com
 | Partners | Shared concerns |
 |---|---|
 | architecture and ml-models | Connect workload meaning, numerical expectations and user needs to shared operation and data definitions. |
-| rtl-control and soc | Agree on execution and access behavior, including the information software needs to reason about progress and results. |
+| control and soc | Agree on execution and access behavior, including the information software needs to reason about progress and results. |
 | fpga, verification and accelerator | Use platform feedback and system experiments to assess usability and correctness from the software side. |
 
 ## Possible directions
