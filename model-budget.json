@@ -168,7 +168,7 @@
     "qwen35-2b-config.json": "37a3ba065c72dfbc4b9dac25b21ea56279a0468d5161c9e4cfd4f165aa0a614d",
     "qwen35-2b-model.json": "4a56026e62c330e851f37be514413b552568bbf2a99bd61efab11fa0ec3b7165",
     "qwen35-2b-tensors.json": "730a8548261e32768896bb4df4be2d5257f9551d3f9b10b26f36dea63605b0cb",
-    "team-manifest.json": "a26d0a997afab0b9118fd86442224e494d578d3e39f381c196a160c195bdc257",
+    "team-manifest.json": "a6ba0cc92c568026833bd97b6acea2d909f0560124eb91542aeef428fffe7920",
     "transformers-reference.json": "2a087962fee58a672633825ea8a40a3c479101361a075f9d63a26055d3feb5f2",
     "version-survey.json": "a6e97637dae0213687aaf0157239105c8d8980c32d23c046bed8c29f8d8f1945"
   }

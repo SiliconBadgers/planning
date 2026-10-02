@@ -26,7 +26,7 @@ Maintain diagrams, assumptions, interface rationale and evidence from composed h
 
 ## Boundaries and shared decisions
 
-SoC owns hardware composition and host-facing access. rtl-control owns execution sequencing; rtl-compute and rtl-memory own their respective block internals. FPGA owns board shells, pin constraints and board transport adaptation. Accelerator owns combined-system understanding, experiments and release context across hardware and software. Shared address, command and reset semantics are agreed with architecture and the affected consumers.
+SoC owns hardware composition and host-facing access. control owns execution sequencing; rtl-compute and memory own their respective block internals. FPGA owns board shells, pin constraints and board transport adaptation. Accelerator owns combined-system understanding, experiments and release context across hardware and software. Shared address, command and reset semantics are agreed with architecture and the affected consumers.
 
 ## Member autonomy
 

@@ -1,6 +1,7 @@
 # SiliconBadgers project master plan
 
-**Current coordination:** Read [the September 22 team packet](docs/team-start.md) for the current repositories, Mermaid diagram, llama.cpp evidence and parallel investigations. The eleven-team organization and charter library below describe the September 10 snapshot. Software now replaces ML Models/ML Compiler responsibilities; there is no separate FPGA team. Historical technical proposals below are not newly adopted interfaces.
+**Current coordination:** Read [the current team packet](docs/team-start.md) for the current repositories, Mermaid diagram, llama.cpp evidence and parallel investigations. The eleven-team organization and charter library below describe the September 10 snapshot. Software now replaces ML Models/ML Compiler responsibilities; there is no separate FPGA team. Control and memory labels below identify historical areas whose source commits
+now live in RTL. Historical technical proposals below are not newly adopted interfaces.
 
 A technical and organizational plan for a Qwen3.5-2B accelerator with four-bit weights, shared by eleven teams whose members choose their contributions.
 
@@ -25,7 +26,7 @@ Earlier Qwen-oriented accelerator work provides material for architectural explo
 | Model direction | Qwen 3.5 through 3.7 at approximately 2B, with Qwen/Qwen3.5-2B pinned as the concrete baseline. |
 | Compression direction | Four-bit weights. INT4 and defined FP4 candidates will be compared; activations, state and cache precision are separate decisions. |
 | Organization | The eleven team repositories belong to SiliconBadgers and are private. The separate `planning` repository houses this shared plan. |
-| Repository structure | Hardware responsibilities use `rtl-compute`, `rtl-memory`, `rtl-control` and `soc`. Machine-learning work uses `ml-compiler` and `ml-models`. |
+| Repository structure | Hardware responsibilities use `rtl-compute`, `memory`, `control` and `soc`. Machine-learning work uses `ml-compiler` and `ml-models`. |
 | Team direction | A detailed charter and high-level objectives define each team’s purpose. Members choose their contributions. |
 | Leadership | Leads facilitate learning, context and collaboration. The organizing model is not an assigned queue of coding or infrastructure tickets. |
 | Shared boundaries | Teams agree together on behavior that others depend on. Each accepted specification or implementation has one authoritative home. |
@@ -49,7 +50,7 @@ Five repositories participate in the runnable example. This is an inventory of s
 
 The published example passed four model tests, 261 golden vectors and 131,600 RTL checks from fresh GitHub clones. Directed checks include signed arithmetic, hold, clear priority, reset and wraparound. Wrong, empty and truncated vector inputs were rejected during the source validation.
 
-`soc`, `rtl-memory`, `rtl-control`, `ml-compiler`, `fpga` and `physical-design` have charters, objectives and scaffolds, with no supplied component implementation. Their placeholder test commands report that state. Research and design contributions are assessed through their reasoning and evidence, independently of whether a component has an executable test target.
+`soc`, `memory`, `control`, `ml-compiler`, `fpga` and `physical-design` have charters, objectives and scaffolds, with no supplied component implementation. Their placeholder test commands report that state. Research and design contributions are assessed through their reasoning and evidence, independently of whether a component has an executable test target.
 
 There is no validated full-model inference system, integrated control/memory/SoC implementation, compiler, board demonstration or ASIC physical implementation in these new repositories. The broader reference codebase has not been fully migrated. GitHub CI and additional operating-system environments have not been established by the current example checks.
 
@@ -438,7 +439,7 @@ The baseline suggests a logical system with a host interface, command and comple
 
 ### Keep control and SoC distinct
 
-`rtl-control` owns how accepted operations make progress: dependencies, resource arbitration, in-flight work, context selection, stalls, completion and recoverable errors. `soc` owns the composed hardware and host-visible integration: addressing, bus attachment, clock/reset domains, memory controllers and the observable system interface. Compute owns arithmetic behavior; memory owns storage and transfer behavior. A control microarchitecture should not implicitly determine the platform bus or external memory technology.
+`control` owns how accepted operations make progress: dependencies, resource arbitration, in-flight work, context selection, stalls, completion and recoverable errors. `soc` owns the composed hardware and host-visible integration: addressing, bus attachment, clock/reset domains, memory controllers and the observable system interface. Compute owns arithmetic behavior; memory owns storage and transfer behavior. A control microarchitecture should not implicitly determine the platform bus or external memory technology.
 
 `ml-compiler` owns the path from the model's operators into a packed, executable schedule and the runtime's submission needs. `architecture` stewards shared semantics with all consumers. The question is what software must express and hardware must guarantee. A large instruction set is not a prerequisite for answering that question.
 
@@ -521,8 +522,8 @@ The RTL teams own hardware responsibilities. Architecture, machine-learning work
 |---|---|---|
 | [architecture](#team-architecture) | Architecture and system direction | MAC example contributor |
 | [rtl-compute](#team-rtl-compute) | Compute datapaths | MAC example contributor |
-| [rtl-memory](#team-rtl-memory) | Memory and data movement | Documentation and scaffold |
-| [rtl-control](#team-rtl-control) | Execution control and scheduling | Documentation and scaffold |
+| [memory](#team-memory) | Memory and data movement | Documentation and scaffold |
+| [control](#team-control) | Execution control and scheduling | Documentation and scaffold |
 | [soc](#team-soc) | SoC composition and system interfaces | Documentation and scaffold |
 | [ml-compiler](#team-ml-compiler) | ML compiler and runtime | Documentation and scaffold |
 | [ml-models](#team-ml-models) | ML models, workloads and numerical methods | MAC example contributor |
@@ -541,8 +542,8 @@ These are durable technical objectives and questions that teams can explore. The
 |---|---|---|
 | `architecture` | Make the hybrid decoder and its system assumptions coherent | What scope, numerical contracts and resource envelope support a defensible complete result? |
 | `rtl-compute` | Understand and realize useful arithmetic across dense, attention and recurrent work | How should matrix, vector and state operations share resources? What does INT4 or FP4 cost at equal quality? |
-| `rtl-memory` | Make weights, scales and per-request state available at the needed rate | Which residency, packing, banking and transfer policies explain the measured bandwidth? |
-| `rtl-control` | Make prefill, decode and context transitions progress predictably | What dependencies and scheduling policies balance utilization, responsiveness and correct state updates? |
+| `memory` | Make weights, scales and per-request state available at the needed rate | Which residency, packing, banking and transfer policies explain the measured bandwidth? |
+| `control` | Make prefill, decode and context transitions progress predictably | What dependencies and scheduling policies balance utilization, responsiveness and correct state updates? |
 | `soc` | Compose an observable, usable accelerator system | What host and memory interfaces, reset behavior and platform boundaries let the blocks work together? |
 | `ml-compiler` | Express the model faithfully in executable artifacts and schedules | What export format, tiling and runtime abstraction preserve semantics while exposing hardware reuse? |
 | `ml-models` | Establish the workload and the quality consequences of approximation | Which INT4/FP4 policies, activation formats and recurrent-state choices preserve useful behavior? |
@@ -782,7 +783,7 @@ Preserve explanations, experiments, local checks and implementation knowledge so
 
 #### Boundaries and shared decisions
 
-This team owns arithmetic implementation and its internal pipelines. rtl-control coordinates operations across blocks; rtl-memory owns storage and movement services; soc owns system composition. Architecture and ml-models help establish shared numerical semantics. Verification contributes independent correctness assessment, while physical-design and FPGA provide implementation feedback. A choice that changes visible timing or numerical behavior is discussed with the relevant consumers.
+This team owns arithmetic implementation and its internal pipelines. control coordinates operations across blocks; memory owns storage and movement services; soc owns system composition. Architecture and ml-models help establish shared numerical semantics. Verification contributes independent correctness assessment, while physical-design and FPGA provide implementation feedback. A choice that changes visible timing or numerical behavior is discussed with the relevant consumers.
 
 #### Member autonomy
 
@@ -793,7 +794,7 @@ Members choose operators or design questions that serve the charter and their in
 | Partners | Shared concerns |
 |---|---|
 | architecture and ml-models | Exchange operation requirements, numerical assumptions and reference behavior so compute choices remain meaningful to the workload. |
-| rtl-control and rtl-memory | Agree on operand availability, operation acceptance, result handling and the assumptions that affect scheduling or data movement. |
+| control and memory | Agree on operand availability, operation acceptance, result handling and the assumptions that affect scheduling or data movement. |
 | verification, fpga and physical-design | Share behavior and constraints; use independent checks and implementation measurements to assess the strengths and limits of a design. |
 
 #### Possible directions
@@ -858,9 +859,9 @@ connect related interests across the team. Members can propose new directions
 or changes to these objectives when they can explain how the charter would be
 better served.
 
-### Team: rtl-memory
+### Team: memory
 
-[Open repository](https://github.com/SiliconBadgers/rtl-memory) | [Source charter](https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/CHARTER.md) | [Source objectives](https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/OBJECTIVES.md)
+[Open repository](https://github.com/SiliconBadgers/rtl) | [Source charter](https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/CHARTER.md) | [Source objectives](https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/OBJECTIVES.md)
 
 #### Purpose
 
@@ -888,7 +889,7 @@ Investigate bandwidth demand, contention, reuse and physical storage constraints
 
 #### Boundaries and shared decisions
 
-rtl-memory owns the storage subsystem and its access services. rtl-control decides when accelerator operations request those services; rtl-compute owns local arithmetic behavior; soc connects subsystem and host interfaces. Architecture coordinates the shared address and data model. Physical-design informs storage implementation options, and FPGA owns the board-specific adaptation of external memory resources. Exact routing and protocol boundaries are agreed where these responsibilities meet.
+memory owns the storage subsystem and its access services. control decides when accelerator operations request those services; rtl-compute owns local arithmetic behavior; soc connects subsystem and host interfaces. Architecture coordinates the shared address and data model. Physical-design informs storage implementation options, and FPGA owns the board-specific adaptation of external memory resources. Exact routing and protocol boundaries are agreed where these responsibilities meet.
 
 #### Member autonomy
 
@@ -899,7 +900,7 @@ Members may investigate access patterns, compare banking approaches, examine buf
 | Partners | Shared concerns |
 |---|---|
 | architecture and ml-models | Use workload dimensions, layouts and access patterns to examine what the storage system needs to support. |
-| rtl-control, rtl-compute and soc | Exchange request patterns and interface assumptions; clarify ordering, contention and response behavior at subsystem boundaries. |
+| control, rtl-compute and soc | Exchange request patterns and interface assumptions; clarify ordering, contention and response behavior at subsystem boundaries. |
 | verification, fpga and physical-design | Work together on correctness evidence and on the gap between an abstract storage model and an actual target implementation. |
 
 #### Possible directions
@@ -918,8 +919,8 @@ code changes or completed tickets.
 
 The team can revise this charter as its understanding evolves. Changes to a
 shared boundary or commitment are discussed with the teams affected by them.
-The [objectives](https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/OBJECTIVES.md) describe durable outcomes, and the
-[repository structure](https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/README.md#repository-structure) provides places to develop
+The [objectives](https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/OBJECTIVES.md) describe durable outcomes, and the
+[repository structure](https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/README.md#repository-structure) provides places to develop
 work without specifying a mandatory project or sequence.
 
 #### High-level objectives
@@ -929,7 +930,7 @@ choose which questions to pursue, the approach, the scale and the contribution
 format. The order is not a priority ranking, and the examples of evidence are
 illustrative. They are not a checklist, required deliverables or assignments.
 
-Read the [charter](https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/CHARTER.md) for scope and shared decision boundaries.
+Read the [charter](https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/CHARTER.md) for scope and shared decision boundaries.
 
 ##### A workload-informed storage strategy
 
@@ -964,9 +965,9 @@ connect related interests across the team. Members can propose new directions
 or changes to these objectives when they can explain how the charter would be
 better served.
 
-### Team: rtl-control
+### Team: control
 
-[Open repository](https://github.com/SiliconBadgers/rtl-control) | [Source charter](https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/CHARTER.md) | [Source objectives](https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/OBJECTIVES.md)
+[Open repository](https://github.com/SiliconBadgers/rtl) | [Source charter](https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/CHARTER.md) | [Source objectives](https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/OBJECTIVES.md)
 
 #### Purpose
 
@@ -994,7 +995,7 @@ Maintain useful state diagrams, scheduling analyses, interface models, design ra
 
 #### Boundaries and shared decisions
 
-rtl-control owns execution sequencing across accelerator operations. soc owns host-facing access, register/address decoding and system wiring; rtl-memory owns access and transfer machinery; rtl-compute owns arithmetic and internal datapath timing. Architecture stewards shared execution semantics with these teams. The control/SoC boundary must make configuration, launch, status and error ownership explicit without merging their charters.
+control owns execution sequencing across accelerator operations. soc owns host-facing access, register/address decoding and system wiring; memory owns access and transfer machinery; rtl-compute owns arithmetic and internal datapath timing. Architecture stewards shared execution semantics with these teams. The control/SoC boundary must make configuration, launch, status and error ownership explicit without merging their charters.
 
 #### Member autonomy
 
@@ -1005,7 +1006,7 @@ Members can choose to study scheduling strategies, model dependencies, examine d
 | Partners | Shared concerns |
 |---|---|
 | architecture and ml-compiler | Connect intended operation semantics and software expectations to a realizable execution model. |
-| rtl-compute and rtl-memory | Agree on operation requests, resource availability, responses and the assumptions required for progress. |
+| rtl-compute and memory | Agree on operation requests, resource availability, responses and the assumptions required for progress. |
 | soc and verification | Clarify the host-to-execution boundary and collaborate on observations that demonstrate correct ordering, progress and recovery. |
 
 #### Possible directions
@@ -1024,8 +1025,8 @@ code changes or completed tickets.
 
 The team can revise this charter as its understanding evolves. Changes to a
 shared boundary or commitment are discussed with the teams affected by them.
-The [objectives](https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/OBJECTIVES.md) describe durable outcomes, and the
-[repository structure](https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/README.md#repository-structure) provides places to develop
+The [objectives](https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/OBJECTIVES.md) describe durable outcomes, and the
+[repository structure](https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/README.md#repository-structure) provides places to develop
 work without specifying a mandatory project or sequence.
 
 #### High-level objectives
@@ -1035,7 +1036,7 @@ choose which questions to pursue, the approach, the scale and the contribution
 format. The order is not a priority ranking, and the examples of evidence are
 illustrative. They are not a checklist, required deliverables or assignments.
 
-Read the [charter](https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/CHARTER.md) for scope and shared decision boundaries.
+Read the [charter](https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/CHARTER.md) for scope and shared decision boundaries.
 
 ##### An understandable execution model
 
@@ -1100,7 +1101,7 @@ Maintain diagrams, assumptions, interface rationale and evidence from composed h
 
 #### Boundaries and shared decisions
 
-SoC owns hardware composition and host-facing access. rtl-control owns execution sequencing; rtl-compute and rtl-memory own their respective block internals. FPGA owns board shells, pin constraints and board transport adaptation. Accelerator owns combined-system understanding, experiments and release context across hardware and software. Shared address, command and reset semantics are agreed with architecture and the affected consumers.
+SoC owns hardware composition and host-facing access. control owns execution sequencing; rtl-compute and memory own their respective block internals. FPGA owns board shells, pin constraints and board transport adaptation. Accelerator owns combined-system understanding, experiments and release context across hardware and software. Shared address, command and reset semantics are agreed with architecture and the affected consumers.
 
 #### Member autonomy
 
@@ -1217,7 +1218,7 @@ Members can investigate programming abstractions, study lowering strategies, com
 | Partners | Shared concerns |
 |---|---|
 | architecture and ml-models | Connect workload meaning, numerical expectations and user needs to shared operation and data definitions. |
-| rtl-control and soc | Agree on execution and access behavior, including the information software needs to reason about progress and results. |
+| control and soc | Agree on execution and access behavior, including the information software needs to reason about progress and results. |
 | fpga, verification and accelerator | Use platform feedback and system experiments to assess usability and correctness from the software side. |
 
 #### Possible directions
@@ -1323,7 +1324,7 @@ Members can choose algorithm or workload studies, quantization experiments, refe
 | Partners | Shared concerns |
 |---|---|
 | architecture and ml-compiler | Share workload structure, representation choices and numerical expectations that inform capability and mapping decisions. |
-| rtl-compute and rtl-memory | Explain operation semantics and data characteristics that matter for datapath and storage design. |
+| rtl-compute and memory | Explain operation semantics and data characteristics that matter for datapath and storage design. |
 | verification and accelerator | Provide references and representative cases, interpret discrepancies and clarify the limits of system-level correctness or quality claims. |
 
 #### Possible directions
@@ -1829,14 +1830,17 @@ Format and algorithm discussions link primary sources where used: OCP for MXFP4,
 
 The initial repository publication was checked for private visibility, exactly one commit per repository and the configured project author. Fresh GitHub clones matched the reviewed source files and passed the MAC example. Repository descriptions were subsequently edited without changing the commits.
 
+Control and memory use area names below. Their original source commits are preserved
+in the combined RTL repository; historical visibility and commit counts are unchanged.
+
 Repository snapshot checked September 10, 2026 at 09:48 PM CDT.
 
 | Repository | Recorded revision | Visibility | Commits at check |
 |---|---|---|---|
 | architecture | [4e67ed3711](https://github.com/SiliconBadgers/architecture/commit/4e67ed3711179c1500c5109defbad96447dfc7be) | Private | 1 |
 | rtl-compute | [b25a309d49](https://github.com/SiliconBadgers/rtl-compute/commit/b25a309d4964b403fae2ab189d240eae47843a50) | Private | 1 |
-| rtl-memory | [ac2d19fd06](https://github.com/SiliconBadgers/rtl-memory/commit/ac2d19fd0658765573108d07451aac4003f3211e) | Private | 1 |
-| rtl-control | [7d887052f1](https://github.com/SiliconBadgers/rtl-control/commit/7d887052f1352a4246011476316bf918cf181335) | Private | 1 |
+| memory | [ac2d19fd06](https://github.com/SiliconBadgers/rtl/commit/ac2d19fd0658765573108d07451aac4003f3211e) | Private | 1 |
+| control | [7d887052f1](https://github.com/SiliconBadgers/rtl/commit/7d887052f1352a4246011476316bf918cf181335) | Private | 1 |
 | soc | [40e39bdfa3](https://github.com/SiliconBadgers/soc/commit/40e39bdfa3c5b9d752a60975789b571303d793b9) | Private | 1 |
 | ml-compiler | [394e5a30ba](https://github.com/SiliconBadgers/ml-compiler/commit/394e5a30bad880c181ab5536b44e93d1106120ea) | Private | 1 |
 | ml-models | [7b52b7e09b](https://github.com/SiliconBadgers/ml-models/commit/7b52b7e09be7b283bb62c04d042c9a7141613be6) | Private | 1 |

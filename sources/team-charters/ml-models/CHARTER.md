@@ -37,7 +37,7 @@ Members can choose algorithm or workload studies, quantization experiments, refe
 | Partners | Shared concerns |
 |---|---|
 | architecture and ml-compiler | Share workload structure, representation choices and numerical expectations that inform capability and mapping decisions. |
-| rtl-compute and rtl-memory | Explain operation semantics and data characteristics that matter for datapath and storage design. |
+| rtl-compute and memory | Explain operation semantics and data characteristics that matter for datapath and storage design. |
 | verification and accelerator | Provide references and representative cases, interpret discrepancies and clarify the limits of system-level correctness or quality claims. |
 
 ## Possible directions

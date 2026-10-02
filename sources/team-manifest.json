@@ -10,11 +10,11 @@
       "owner_role": "Compute datapaths",
       "status": "working-starter"
     },
-    "rtl-memory": {
+    "memory": {
       "owner_role": "Memory and data movement",
       "status": "scaffold"
     },
-    "rtl-control": {
+    "control": {
       "owner_role": "Execution control and scheduling",
       "status": "scaffold"
     },

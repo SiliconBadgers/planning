@@ -357,7 +357,7 @@ The baseline suggests a logical system with a host interface, command and comple
 
 ### Keep control and SoC distinct
 
-`rtl-control` owns how accepted operations make progress: dependencies, resource arbitration, in-flight work, context selection, stalls, completion and recoverable errors. `soc` owns the composed hardware and host-visible integration: addressing, bus attachment, clock/reset domains, memory controllers and the observable system interface. Compute owns arithmetic behavior; memory owns storage and transfer behavior. A control microarchitecture should not implicitly determine the platform bus or external memory technology.
+`control` owns how accepted operations make progress: dependencies, resource arbitration, in-flight work, context selection, stalls, completion and recoverable errors. `soc` owns the composed hardware and host-visible integration: addressing, bus attachment, clock/reset domains, memory controllers and the observable system interface. Compute owns arithmetic behavior; memory owns storage and transfer behavior. A control microarchitecture should not implicitly determine the platform bus or external memory technology.
 
 `ml-compiler` owns the path from the model's operators into a packed, executable schedule and the runtime's submission needs. `architecture` stewards shared semantics with all consumers. The question is what software must express and hardware must guarantee. A large instruction set is not a prerequisite for answering that question.
 

@@ -29,7 +29,7 @@
 <header class="topbar"><span>ENGINEERING / SHARED DIRECTION</span><div><a class="quiet-button" href="PLAN.md" download="SiliconBadgers-Plan.md">Markdown</a><button class="quiet-button js-only" id="print-plan" type="button">Print / PDF</button></div></header>
 <main id="document">
 <div class="cover" id="top"><p class="eyebrow">SILICONBADGERS / PLAN 02</p><h1>Qwen 3.5<br><span>to silicon.</span></h1><p class="cover-deck">A 2B model. Four-bit weights.<br>An engineering plan for eleven teams.</p><div class="cover-meta"><span>Qwen3.5-2B baseline</span><span>INT4 / FP4 studies</span><span>Shared technical draft</span></div><div class="next-decision"><span class="next-label">TARGET SET / TRADEOFFS OPEN</span><p>Prefill, decode and persistent state need different compute, memory and precision choices.</p><a href="#04-qwen-baseline-and-exact-scope">Read the technical baseline <span aria-hidden="true">↗</span></a></div></div>
-<article><p><strong>Current coordination:</strong> Read <a href="docs/team-start.md">the September 22 team packet</a> for the current repositories, Mermaid diagram, llama.cpp evidence and parallel investigations. The eleven-team organization and charter library below describe the September 10 snapshot. Software now replaces ML Models/ML Compiler responsibilities; there is no separate FPGA team. Historical technical proposals below are not newly adopted interfaces.</p>
+<article><p><strong>Current coordination:</strong> Read <a href="docs/team-start.md">the current team packet</a> for the current repositories, Mermaid diagram, llama.cpp evidence and parallel investigations. The eleven-team organization and charter library below describe the September 10 snapshot. Software now replaces ML Models/ML Compiler responsibilities; there is no separate FPGA team. Control and memory labels below identify historical areas whose source commits now live in RTL. Historical technical proposals below are not newly adopted interfaces.</p>
 <p>A technical and organizational plan for a Qwen3.5-2B accelerator with four-bit weights, shared by eleven teams whose members choose their contributions.</p>
 <p><strong>Status:</strong> Working draft 0.2, technical baseline researched September 10, 2026. Qwen3.5-2B is the concrete checkpoint within the requested Qwen 3.5 through 3.7, approximately 2B direction. Four-bit weights are the target; INT4 versus FP4 and the other numerical formats remain explicit design questions. Checkpoint facts, project decisions, proposed experiments and analytical estimates are distinguished throughout. Each repository remains the authority for its own charter and accepted technical material.</p>
 <section class="chapter" id="01-purpose-and-direction"><header class="chapter-header"><span class="chapter-number">01</span><h2>Purpose and direction</h2></header>
@@ -47,7 +47,7 @@
 <tr><td>Model direction</td><td>Qwen 3.5 through 3.7 at approximately 2B, with Qwen/Qwen3.5-2B pinned as the concrete baseline.</td></tr>
 <tr><td>Compression direction</td><td>Four-bit weights. INT4 and defined FP4 candidates will be compared; activations, state and cache precision are separate decisions.</td></tr>
 <tr><td>Organization</td><td>The eleven team repositories belong to SiliconBadgers and are private. The separate <code>planning</code> repository houses this shared plan.</td></tr>
-<tr><td>Repository structure</td><td>Hardware responsibilities use <code>rtl-compute</code>, <code>rtl-memory</code>, <code>rtl-control</code> and <code>soc</code>. Machine-learning work uses <code>ml-compiler</code> and <code>ml-models</code>.</td></tr>
+<tr><td>Repository structure</td><td>Hardware responsibilities use <code>rtl-compute</code>, <code>memory</code>, <code>control</code> and <code>soc</code>. Machine-learning work uses <code>ml-compiler</code> and <code>ml-models</code>.</td></tr>
 <tr><td>Team direction</td><td>A detailed charter and high-level objectives define each team’s purpose. Members choose their contributions.</td></tr>
 <tr><td>Leadership</td><td>Leads facilitate learning, context and collaboration. The organizing model is not an assigned queue of coding or infrastructure tickets.</td></tr>
 <tr><td>Shared boundaries</td><td>Teams agree together on behavior that others depend on. Each accepted specification or implementation has one authoritative home.</td></tr>
@@ -71,7 +71,7 @@
 <tr><td><code>accelerator</code></td><td>Workspace manifest and combined runner</td><td>One working path through the separate repositories</td></tr>
 </tbody></table></div>
 <p>The published example passed four model tests, 261 golden vectors and 131,600 RTL checks from fresh GitHub clones. Directed checks include signed arithmetic, hold, clear priority, reset and wraparound. Wrong, empty and truncated vector inputs were rejected during the source validation.</p>
-<p><code>soc</code>, <code>rtl-memory</code>, <code>rtl-control</code>, <code>ml-compiler</code>, <code>fpga</code> and <code>physical-design</code> have charters, objectives and scaffolds, with no supplied component implementation. Their placeholder test commands report that state. Research and design contributions are assessed through their reasoning and evidence, independently of whether a component has an executable test target.</p>
+<p><code>soc</code>, <code>memory</code>, <code>control</code>, <code>ml-compiler</code>, <code>fpga</code> and <code>physical-design</code> have charters, objectives and scaffolds, with no supplied component implementation. Their placeholder test commands report that state. Research and design contributions are assessed through their reasoning and evidence, independently of whether a component has an executable test target.</p>
 <p>There is no validated full-model inference system, integrated control/memory/SoC implementation, compiler, board demonstration or ASIC physical implementation in these new repositories. The broader reference codebase has not been fully migrated. GitHub CI and additional operating-system environments have not been established by the current example checks.</p>
 </section>
 <section class="chapter" id="04-qwen-baseline-and-exact-scope"><header class="chapter-header"><span class="chapter-number">04</span><h2>Qwen baseline and exact scope</h2></header>
@@ -371,7 +371,7 @@ Decode QK + AV MACs at context T
 <section class="chapter" id="13-hardwaresoftware-contracts-and-block-responsibilities"><header class="chapter-header"><span class="chapter-number">13</span><h2>Hardware/software contracts and block responsibilities</h2></header>
 <p>The baseline suggests a logical system with a host interface, command and completion queues, execution control, external-memory transfers, banked local storage, a tiled matrix engine, vector/nonlinear arithmetic, and attention/DeltaNet state paths. This is a set of responsibilities. Teams can combine or split implementations when evidence supports the choice.</p>
 <h3 id="keep-control-and-soc-distinct">Keep control and SoC distinct</h3>
-<p><code>rtl-control</code> owns how accepted operations make progress: dependencies, resource arbitration, in-flight work, context selection, stalls, completion and recoverable errors. <code>soc</code> owns the composed hardware and host-visible integration: addressing, bus attachment, clock/reset domains, memory controllers and the observable system interface. Compute owns arithmetic behavior; memory owns storage and transfer behavior. A control microarchitecture should not implicitly determine the platform bus or external memory technology.</p>
+<p><code>control</code> owns how accepted operations make progress: dependencies, resource arbitration, in-flight work, context selection, stalls, completion and recoverable errors. <code>soc</code> owns the composed hardware and host-visible integration: addressing, bus attachment, clock/reset domains, memory controllers and the observable system interface. Compute owns arithmetic behavior; memory owns storage and transfer behavior. A control microarchitecture should not implicitly determine the platform bus or external memory technology.</p>
 <p><code>ml-compiler</code> owns the path from the model&#x27;s operators into a packed, executable schedule and the runtime&#x27;s submission needs. <code>architecture</code> stewards shared semantics with all consumers. The question is what software must express and hardware must guarantee. A large instruction set is not a prerequisite for answering that question.</p>
 <h3 id="model-artifact-contract">Model artifact contract</h3>
 <p>Every export should identify the source checkpoint and revision, tokenizer/template hashes, selected text/vision/MTP scope, operator graph and tensor manifest. Each tensor records logical dimensions, stored layout, transposition, padding, quantization axis, group size, code interpretation, scales, zero-points if any, and offsets. Include checksums so runtime loading can detect a mismatched or incomplete artifact.</p>
@@ -441,8 +441,8 @@ Decode QK + AV MACs at context T
 </tr></thead><tbody>
 <tr><td><a href="#team-architecture">architecture</a></td><td>Architecture and system direction</td><td>MAC example contributor</td></tr>
 <tr><td><a href="#team-rtl-compute">rtl-compute</a></td><td>Compute datapaths</td><td>MAC example contributor</td></tr>
-<tr><td><a href="#team-rtl-memory">rtl-memory</a></td><td>Memory and data movement</td><td>Documentation and scaffold</td></tr>
-<tr><td><a href="#team-rtl-control">rtl-control</a></td><td>Execution control and scheduling</td><td>Documentation and scaffold</td></tr>
+<tr><td><a href="#team-memory">memory</a></td><td>Memory and data movement</td><td>Documentation and scaffold</td></tr>
+<tr><td><a href="#team-control">control</a></td><td>Execution control and scheduling</td><td>Documentation and scaffold</td></tr>
 <tr><td><a href="#team-soc">soc</a></td><td>SoC composition and system interfaces</td><td>Documentation and scaffold</td></tr>
 <tr><td><a href="#team-ml-compiler">ml-compiler</a></td><td>ML compiler and runtime</td><td>Documentation and scaffold</td></tr>
 <tr><td><a href="#team-ml-models">ml-models</a></td><td>ML models, workloads and numerical methods</td><td>MAC example contributor</td></tr>
@@ -461,8 +461,8 @@ Decode QK + AV MACs at context T
 </tr></thead><tbody>
 <tr><td><code>architecture</code></td><td>Make the hybrid decoder and its system assumptions coherent</td><td>What scope, numerical contracts and resource envelope support a defensible complete result?</td></tr>
 <tr><td><code>rtl-compute</code></td><td>Understand and realize useful arithmetic across dense, attention and recurrent work</td><td>How should matrix, vector and state operations share resources? What does INT4 or FP4 cost at equal quality?</td></tr>
-<tr><td><code>rtl-memory</code></td><td>Make weights, scales and per-request state available at the needed rate</td><td>Which residency, packing, banking and transfer policies explain the measured bandwidth?</td></tr>
-<tr><td><code>rtl-control</code></td><td>Make prefill, decode and context transitions progress predictably</td><td>What dependencies and scheduling policies balance utilization, responsiveness and correct state updates?</td></tr>
+<tr><td><code>memory</code></td><td>Make weights, scales and per-request state available at the needed rate</td><td>Which residency, packing, banking and transfer policies explain the measured bandwidth?</td></tr>
+<tr><td><code>control</code></td><td>Make prefill, decode and context transitions progress predictably</td><td>What dependencies and scheduling policies balance utilization, responsiveness and correct state updates?</td></tr>
 <tr><td><code>soc</code></td><td>Compose an observable, usable accelerator system</td><td>What host and memory interfaces, reset behavior and platform boundaries let the blocks work together?</td></tr>
 <tr><td><code>ml-compiler</code></td><td>Express the model faithfully in executable artifacts and schedules</td><td>What export format, tiling and runtime abstraction preserve semantics while exposing hardware reuse?</td></tr>
 <tr><td><code>ml-models</code></td><td>Establish the workload and the quality consequences of approximation</td><td>Which INT4/FP4 policies, activation formats and recurrent-state choices preserve useful behavior?</td></tr>
@@ -619,7 +619,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <h5 id="reusable-understanding">Reusable understanding</h5>
 <p>Preserve explanations, experiments, local checks and implementation knowledge so members can compare approaches and build on one another’s work.</p>
 <h4 id="boundaries-and-shared-decisions-2">Boundaries and shared decisions</h4>
-<p>This team owns arithmetic implementation and its internal pipelines. rtl-control coordinates operations across blocks; rtl-memory owns storage and movement services; soc owns system composition. Architecture and ml-models help establish shared numerical semantics. Verification contributes independent correctness assessment, while physical-design and FPGA provide implementation feedback. A choice that changes visible timing or numerical behavior is discussed with the relevant consumers.</p>
+<p>This team owns arithmetic implementation and its internal pipelines. control coordinates operations across blocks; memory owns storage and movement services; soc owns system composition. Architecture and ml-models help establish shared numerical semantics. Verification contributes independent correctness assessment, while physical-design and FPGA provide implementation feedback. A choice that changes visible timing or numerical behavior is discussed with the relevant consumers.</p>
 <h4 id="member-autonomy-2">Member autonomy</h4>
 <p>Members choose operators or design questions that serve the charter and their interests. Research, numerical analysis, hardware experiments, educational examples and implementation work are all valid directions. Internal datapath choices belong to the team within agreed interfaces. The current signed MAC can support exploration, but it does not prescribe the team’s next block, final precision or architecture.</p>
 <h4 id="collaboration-2">Collaboration</h4>
@@ -628,7 +628,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <th scope="col">Shared concerns</th>
 </tr></thead><tbody>
 <tr><td>architecture and ml-models</td><td>Exchange operation requirements, numerical assumptions and reference behavior so compute choices remain meaningful to the workload.</td></tr>
-<tr><td>rtl-control and rtl-memory</td><td>Agree on operand availability, operation acceptance, result handling and the assumptions that affect scheduling or data movement.</td></tr>
+<tr><td>control and memory</td><td>Agree on operand availability, operation acceptance, result handling and the assumptions that affect scheduling or data movement.</td></tr>
 <tr><td>verification, fpga and physical-design</td><td>Share behavior and constraints; use independent checks and implementation measurements to assess the strengths and limits of a design.</td></tr>
 </tbody></table></div>
 <h4 id="possible-directions-2">Possible directions</h4>
@@ -655,8 +655,8 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <h5 id="using-these-objectives-2">Using these objectives</h5>
 <p>Use the objectives to explain why a chosen line of work matters and to reflect on what has been learned. A member can advance several objectives through one study, or explore one objective deeply. Leads support the conversation and help connect related interests across the team. Members can propose new directions or changes to these objectives when they can explain how the charter would be better served.</p>
 </div></details>
-<details class="team-charter" id="team-rtl-memory"><summary><span class="team-name">rtl-memory</span><span class="team-focus">Memory and data movement</span><span class="expand-mark" aria-hidden="true">+</span></summary><div class="charter-body">
-<p><a href="https://github.com/SiliconBadgers/rtl-memory">Open repository</a> | <a href="https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/CHARTER.md">Source charter</a> | <a href="https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/OBJECTIVES.md">Source objectives</a></p>
+<details class="team-charter" id="team-memory"><summary><span class="team-name">memory</span><span class="team-focus">Memory and data movement</span><span class="expand-mark" aria-hidden="true">+</span></summary><div class="charter-body">
+<p><a href="https://github.com/SiliconBadgers/rtl">Open repository</a> | <a href="https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/CHARTER.md">Source charter</a> | <a href="https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/OBJECTIVES.md">Source objectives</a></p>
 <h4 id="purpose-3">Purpose</h4>
 <p>Understand and develop how data is stored, accessed and moved within the accelerator. The team makes memory behavior and its performance consequences explicit, supporting useful computation while balancing capacity, bandwidth, latency, cost and implementation constraints.</p>
 <p>Data access can shape the effectiveness of the entire accelerator. This team connects workload access patterns to storage organization and movement mechanisms. Its contributions can include access-pattern studies, architecture comparisons, interface explanations, behavioral models, RTL or measurements.</p>
@@ -670,7 +670,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <h5 id="memory-feasibility-and-performance">Memory feasibility and performance</h5>
 <p>Investigate bandwidth demand, contention, reuse and physical storage constraints. Distinguish behavioral abstractions from realizable resources and preserve evidence behind estimates.</p>
 <h4 id="boundaries-and-shared-decisions-3">Boundaries and shared decisions</h4>
-<p>rtl-memory owns the storage subsystem and its access services. rtl-control decides when accelerator operations request those services; rtl-compute owns local arithmetic behavior; soc connects subsystem and host interfaces. Architecture coordinates the shared address and data model. Physical-design informs storage implementation options, and FPGA owns the board-specific adaptation of external memory resources. Exact routing and protocol boundaries are agreed where these responsibilities meet.</p>
+<p>memory owns the storage subsystem and its access services. control decides when accelerator operations request those services; rtl-compute owns local arithmetic behavior; soc connects subsystem and host interfaces. Architecture coordinates the shared address and data model. Physical-design informs storage implementation options, and FPGA owns the board-specific adaptation of external memory resources. Exact routing and protocol boundaries are agreed where these responsibilities meet.</p>
 <h4 id="member-autonomy-3">Member autonomy</h4>
 <p>Members may investigate access patterns, compare banking approaches, examine buffering policies, build storage models, explain an interface or develop memory hardware. The team chooses internal organization and methods within agreed semantics. Proposals that alter visible capacity, ordering, addressing or performance assumptions are discussed with consumers rather than decided in isolation.</p>
 <h4 id="collaboration-3">Collaboration</h4>
@@ -679,7 +679,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <th scope="col">Shared concerns</th>
 </tr></thead><tbody>
 <tr><td>architecture and ml-models</td><td>Use workload dimensions, layouts and access patterns to examine what the storage system needs to support.</td></tr>
-<tr><td>rtl-control, rtl-compute and soc</td><td>Exchange request patterns and interface assumptions; clarify ordering, contention and response behavior at subsystem boundaries.</td></tr>
+<tr><td>control, rtl-compute and soc</td><td>Exchange request patterns and interface assumptions; clarify ordering, contention and response behavior at subsystem boundaries.</td></tr>
 <tr><td>verification, fpga and physical-design</td><td>Work together on correctness evidence and on the gap between an abstract storage model and an actual target implementation.</td></tr>
 </tbody></table></div>
 <h4 id="possible-directions-3">Possible directions</h4>
@@ -687,10 +687,10 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <h4 id="what-progress-means-3">What progress means</h4>
 <p>Progress is visible when data movement requirements are understood, consumers can reason about storage behavior, and design choices have a defensible relationship to workload and platform constraints. A study that exposes a bandwidth bottleneck or clarifies ambiguous ordering is a substantive contribution.</p>
 <p>Leads help members interpret this purpose, find collaborators, access resources and share what they learn. Members choose their questions and contributions. Research, design reasoning, experiments, implementation, documentation and teaching can all advance the charter; success is not measured by the number of code changes or completed tickets.</p>
-<p>The team can revise this charter as its understanding evolves. Changes to a shared boundary or commitment are discussed with the teams affected by them. The <a href="https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/OBJECTIVES.md">objectives</a> describe durable outcomes, and the <a href="https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/README.md#repository-structure">repository structure</a> provides places to develop work without specifying a mandatory project or sequence.</p>
+<p>The team can revise this charter as its understanding evolves. Changes to a shared boundary or commitment are discussed with the teams affected by them. The <a href="https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/OBJECTIVES.md">objectives</a> describe durable outcomes, and the <a href="https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/README.md#repository-structure">repository structure</a> provides places to develop work without specifying a mandatory project or sequence.</p>
 <h4 id="high-level-objectives-3">High-level objectives</h4>
 <p>These objectives express the outcomes this team exists to advance. Members choose which questions to pursue, the approach, the scale and the contribution format. The order is not a priority ranking, and the examples of evidence are illustrative. They are not a checklist, required deliverables or assignments.</p>
-<p>Read the <a href="https://github.com/SiliconBadgers/rtl-memory/blob/ac2d19fd0658765573108d07451aac4003f3211e/CHARTER.md">charter</a> for scope and shared decision boundaries.</p>
+<p>Read the <a href="https://github.com/SiliconBadgers/rtl/blob/ac2d19fd0658765573108d07451aac4003f3211e/CHARTER.md">charter</a> for scope and shared decision boundaries.</p>
 <h5 id="a-workload-informed-storage-strategy">A workload-informed storage strategy</h5>
 <p>Understand how the accelerator’s data needs influence capacity, organization and movement choices.</p>
 <p>Evidence might include access analyses, locality studies, storage budgets or comparisons of alternatives.</p>
@@ -706,8 +706,8 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <h5 id="using-these-objectives-3">Using these objectives</h5>
 <p>Use the objectives to explain why a chosen line of work matters and to reflect on what has been learned. A member can advance several objectives through one study, or explore one objective deeply. Leads support the conversation and help connect related interests across the team. Members can propose new directions or changes to these objectives when they can explain how the charter would be better served.</p>
 </div></details>
-<details class="team-charter" id="team-rtl-control"><summary><span class="team-name">rtl-control</span><span class="team-focus">Execution control and scheduling</span><span class="expand-mark" aria-hidden="true">+</span></summary><div class="charter-body">
-<p><a href="https://github.com/SiliconBadgers/rtl-control">Open repository</a> | <a href="https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/CHARTER.md">Source charter</a> | <a href="https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/OBJECTIVES.md">Source objectives</a></p>
+<details class="team-charter" id="team-control"><summary><span class="team-name">control</span><span class="team-focus">Execution control and scheduling</span><span class="expand-mark" aria-hidden="true">+</span></summary><div class="charter-body">
+<p><a href="https://github.com/SiliconBadgers/rtl">Open repository</a> | <a href="https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/CHARTER.md">Source charter</a> | <a href="https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/OBJECTIVES.md">Source objectives</a></p>
 <h4 id="purpose-4">Purpose</h4>
 <p>Make accelerator execution understandable and dependable by coordinating operations, resources and progress over time. The team explores how commands become ordered activity across compute and memory, including dependencies, stalls, completion and recovery.</p>
 <p>Execution control connects the programming model to the behavior of hardware blocks. Its design affects utilization, predictability and the ability to reason about a running system. The team can contribute through state and scheduling models, design explanations, protocol studies, experiments or hardware implementations.</p>
@@ -721,7 +721,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <h5 id="control-knowledge-and-implementation">Control knowledge and implementation</h5>
 <p>Maintain useful state diagrams, scheduling analyses, interface models, design rationale and implementation artifacts. Link internal choices to externally visible behavior.</p>
 <h4 id="boundaries-and-shared-decisions-4">Boundaries and shared decisions</h4>
-<p>rtl-control owns execution sequencing across accelerator operations. soc owns host-facing access, register/address decoding and system wiring; rtl-memory owns access and transfer machinery; rtl-compute owns arithmetic and internal datapath timing. Architecture stewards shared execution semantics with these teams. The control/SoC boundary must make configuration, launch, status and error ownership explicit without merging their charters.</p>
+<p>control owns execution sequencing across accelerator operations. soc owns host-facing access, register/address decoding and system wiring; memory owns access and transfer machinery; rtl-compute owns arithmetic and internal datapath timing. Architecture stewards shared execution semantics with these teams. The control/SoC boundary must make configuration, launch, status and error ownership explicit without merging their charters.</p>
 <h4 id="member-autonomy-4">Member autonomy</h4>
 <p>Members can choose to study scheduling strategies, model dependencies, examine deadlock conditions, explain a protocol, prototype a controller or improve an existing design. The team chooses its internal representation and implementation approach. Changes to command meaning or behavior seen by other blocks require shared agreement. No particular sequencer, command set or scheduling policy is mandated by the scaffold.</p>
 <h4 id="collaboration-4">Collaboration</h4>
@@ -730,7 +730,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <th scope="col">Shared concerns</th>
 </tr></thead><tbody>
 <tr><td>architecture and ml-compiler</td><td>Connect intended operation semantics and software expectations to a realizable execution model.</td></tr>
-<tr><td>rtl-compute and rtl-memory</td><td>Agree on operation requests, resource availability, responses and the assumptions required for progress.</td></tr>
+<tr><td>rtl-compute and memory</td><td>Agree on operation requests, resource availability, responses and the assumptions required for progress.</td></tr>
 <tr><td>soc and verification</td><td>Clarify the host-to-execution boundary and collaborate on observations that demonstrate correct ordering, progress and recovery.</td></tr>
 </tbody></table></div>
 <h4 id="possible-directions-4">Possible directions</h4>
@@ -738,10 +738,10 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <h4 id="what-progress-means-4">What progress means</h4>
 <p>Progress means the project can explain how operations execute, identify when progress is possible, and connect execution behavior to correctness and performance. State models, reasoned scheduling comparisons, verification findings and implementations can all supply useful evidence.</p>
 <p>Leads help members interpret this purpose, find collaborators, access resources and share what they learn. Members choose their questions and contributions. Research, design reasoning, experiments, implementation, documentation and teaching can all advance the charter; success is not measured by the number of code changes or completed tickets.</p>
-<p>The team can revise this charter as its understanding evolves. Changes to a shared boundary or commitment are discussed with the teams affected by them. The <a href="https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/OBJECTIVES.md">objectives</a> describe durable outcomes, and the <a href="https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/README.md#repository-structure">repository structure</a> provides places to develop work without specifying a mandatory project or sequence.</p>
+<p>The team can revise this charter as its understanding evolves. Changes to a shared boundary or commitment are discussed with the teams affected by them. The <a href="https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/OBJECTIVES.md">objectives</a> describe durable outcomes, and the <a href="https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/README.md#repository-structure">repository structure</a> provides places to develop work without specifying a mandatory project or sequence.</p>
 <h4 id="high-level-objectives-4">High-level objectives</h4>
 <p>These objectives express the outcomes this team exists to advance. Members choose which questions to pursue, the approach, the scale and the contribution format. The order is not a priority ranking, and the examples of evidence are illustrative. They are not a checklist, required deliverables or assignments.</p>
-<p>Read the <a href="https://github.com/SiliconBadgers/rtl-control/blob/7d887052f1352a4246011476316bf918cf181335/CHARTER.md">charter</a> for scope and shared decision boundaries.</p>
+<p>Read the <a href="https://github.com/SiliconBadgers/rtl/blob/7d887052f1352a4246011476316bf918cf181335/CHARTER.md">charter</a> for scope and shared decision boundaries.</p>
 <h5 id="an-understandable-execution-model">An understandable execution model</h5>
 <p>Make the transition from a submitted operation to its completion clear to both hardware and software contributors.</p>
 <p>Evidence might include state explanations, execution traces, interface definitions or a working model.</p>
@@ -772,7 +772,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <h5 id="integration-understanding">Integration understanding</h5>
 <p>Maintain diagrams, assumptions, interface rationale and evidence from composed hardware. Investigate emergent behavior and support changes that keep the hardware system coherent.</p>
 <h4 id="boundaries-and-shared-decisions-5">Boundaries and shared decisions</h4>
-<p>SoC owns hardware composition and host-facing access. rtl-control owns execution sequencing; rtl-compute and rtl-memory own their respective block internals. FPGA owns board shells, pin constraints and board transport adaptation. Accelerator owns combined-system understanding, experiments and release context across hardware and software. Shared address, command and reset semantics are agreed with architecture and the affected consumers.</p>
+<p>SoC owns hardware composition and host-facing access. control owns execution sequencing; rtl-compute and memory own their respective block internals. FPGA owns board shells, pin constraints and board transport adaptation. Accelerator owns combined-system understanding, experiments and release context across hardware and software. Shared address, command and reset semantics are agreed with architecture and the affected consumers.</p>
 <h4 id="member-autonomy-5">Member autonomy</h4>
 <p>Members may study interface options, map block connections, investigate reset behavior, model a system boundary, explore observability or develop integration hardware. The team decides internal organization within agreed external behavior. Changes that affect software access, block interfaces or platform assumptions are collaborative decisions. The scaffold does not select a bus standard, address map or top-level implementation.</p>
 <h4 id="collaboration-5">Collaboration</h4>
@@ -832,7 +832,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <th scope="col">Shared concerns</th>
 </tr></thead><tbody>
 <tr><td>architecture and ml-models</td><td>Connect workload meaning, numerical expectations and user needs to shared operation and data definitions.</td></tr>
-<tr><td>rtl-control and soc</td><td>Agree on execution and access behavior, including the information software needs to reason about progress and results.</td></tr>
+<tr><td>control and soc</td><td>Agree on execution and access behavior, including the information software needs to reason about progress and results.</td></tr>
 <tr><td>fpga, verification and accelerator</td><td>Use platform feedback and system experiments to assess usability and correctness from the software side.</td></tr>
 </tbody></table></div>
 <h4 id="possible-directions-6">Possible directions</h4>
@@ -883,7 +883,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <th scope="col">Shared concerns</th>
 </tr></thead><tbody>
 <tr><td>architecture and ml-compiler</td><td>Share workload structure, representation choices and numerical expectations that inform capability and mapping decisions.</td></tr>
-<tr><td>rtl-compute and rtl-memory</td><td>Explain operation semantics and data characteristics that matter for datapath and storage design.</td></tr>
+<tr><td>rtl-compute and memory</td><td>Explain operation semantics and data characteristics that matter for datapath and storage design.</td></tr>
 <tr><td>verification and accelerator</td><td>Provide references and representative cases, interpret discrepancies and clarify the limits of system-level correctness or quality claims.</td></tr>
 </tbody></table></div>
 <h4 id="possible-directions-7">Possible directions</h4>
@@ -1123,6 +1123,7 @@ accelerator coordinates this example across sibling repositories</code></pre>
 <p>Format and algorithm discussions link primary sources where used: OCP for MXFP4, NVIDIA for NVFP4, the Gated Delta Networks paper, FlashAttention, GQA, AWQ and GPTQ. Recommendations and bottleneck comparisons in this document are project analysis derived from those semantics and the recorded assumptions. They are not measurements reported by those sources.</p>
 <h3 id="repository-evidence">Repository evidence</h3>
 <p>The initial repository publication was checked for private visibility, exactly one commit per repository and the configured project author. Fresh GitHub clones matched the reviewed source files and passed the MAC example. Repository descriptions were subsequently edited without changing the commits.</p>
+<p>Control and memory use area names below. Their original source commits are preserved in the combined RTL repository; historical visibility and commit counts are unchanged.</p>
 <p>Repository snapshot checked September 10, 2026 at 09:48 PM CDT.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable reference table"><table><thead><tr>
 <th scope="col">Repository</th>
@@ -1132,8 +1133,8 @@ accelerator coordinates this example across sibling repositories</code></pre>
 </tr></thead><tbody>
 <tr><td>architecture</td><td><a href="https://github.com/SiliconBadgers/architecture/commit/4e67ed3711179c1500c5109defbad96447dfc7be">4e67ed3711</a></td><td>Private</td><td>1</td></tr>
 <tr><td>rtl-compute</td><td><a href="https://github.com/SiliconBadgers/rtl-compute/commit/b25a309d4964b403fae2ab189d240eae47843a50">b25a309d49</a></td><td>Private</td><td>1</td></tr>
-<tr><td>rtl-memory</td><td><a href="https://github.com/SiliconBadgers/rtl-memory/commit/ac2d19fd0658765573108d07451aac4003f3211e">ac2d19fd06</a></td><td>Private</td><td>1</td></tr>
-<tr><td>rtl-control</td><td><a href="https://github.com/SiliconBadgers/rtl-control/commit/7d887052f1352a4246011476316bf918cf181335">7d887052f1</a></td><td>Private</td><td>1</td></tr>
+<tr><td>memory</td><td><a href="https://github.com/SiliconBadgers/rtl/commit/ac2d19fd0658765573108d07451aac4003f3211e">ac2d19fd06</a></td><td>Private</td><td>1</td></tr>
+<tr><td>control</td><td><a href="https://github.com/SiliconBadgers/rtl/commit/7d887052f1352a4246011476316bf918cf181335">7d887052f1</a></td><td>Private</td><td>1</td></tr>
 <tr><td>soc</td><td><a href="https://github.com/SiliconBadgers/soc/commit/40e39bdfa3c5b9d752a60975789b571303d793b9">40e39bdfa3</a></td><td>Private</td><td>1</td></tr>
 <tr><td>ml-compiler</td><td><a href="https://github.com/SiliconBadgers/ml-compiler/commit/394e5a30bad880c181ab5536b44e93d1106120ea">394e5a30ba</a></td><td>Private</td><td>1</td></tr>
 <tr><td>ml-models</td><td><a href="https://github.com/SiliconBadgers/ml-models/commit/7b52b7e09be7b283bb62c04d042c9a7141613be6">7b52b7e09b</a></td><td>Private</td><td>1</td></tr>
