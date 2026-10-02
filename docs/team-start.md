@@ -1,15 +1,15 @@
 # Current team work
 
-Updated September 22, 2026. This is the current seven-team assignment map.
+Updated October 2, 2026. This is the current seven-team assignment map.
 The dated plan and eleven-charter snapshots remain historical context.
 
 | Team | Repositories / issues | Current deliverable |
 |---|---|---|
 | Software | [software#3](https://github.com/SiliconBadgers/software/issues/3) | Extend llama.cpp profiling and recommend boundaries from evidence. |
-| Compute1 | [rtl-compute#2](https://github.com/SiliconBadgers/rtl-compute/issues/2) | Independent full compute-unit proposal in research/compute1/. |
-| Compute2 | [rtl-compute#2](https://github.com/SiliconBadgers/rtl-compute/issues/2) | Independent full compute-unit proposal in research/compute2/. |
-| Top-Level Control | [rtl-control#2](https://github.com/SiliconBadgers/rtl-control/issues/2), [architecture#3](https://github.com/SiliconBadgers/architecture/issues/3) | Controller diagram/walkthrough here; MMIO and descriptor proposal in architecture#3. |
-| Memory Control | [rtl-memory#2](https://github.com/SiliconBadgers/rtl-memory/issues/2) | Memory-controller diagram, interfaces and load-compute-store walkthrough. |
+| Compute1 | [rtl#2](https://github.com/SiliconBadgers/rtl/issues/2) | Independent full compute-unit proposal in research/compute1/. |
+| Compute2 | [rtl#2](https://github.com/SiliconBadgers/rtl/issues/2) | Independent full compute-unit proposal in research/compute2/. |
+| Top-Level Control | [rtl#6](https://github.com/SiliconBadgers/rtl/issues/6), [architecture#3](https://github.com/SiliconBadgers/architecture/issues/3) | Controller diagram/walkthrough in RTL; MMIO and descriptor proposal in architecture#3. |
+| Memory Control | [rtl#7](https://github.com/SiliconBadgers/rtl/issues/7) | Memory-controller diagram, interfaces and load-compute-store walkthrough. |
 | Verification | [verification#2](https://github.com/SiliconBadgers/verification/issues/2), [verification#3](https://github.com/SiliconBadgers/verification/issues/3), [verification#4](https://github.com/SiliconBadgers/verification/issues/4) | Test plan, per-layer methodology and hardened Synopsys unit/integration pilots. |
 | Synthesis / Physical Design | [physical-design#2](https://github.com/SiliconBadgers/physical-design/issues/2), [physical-design#3](https://github.com/SiliconBadgers/physical-design/issues/3) | One Synopsys chip baseline and synthesis coverage for every unit, with stubs. |
 
@@ -26,12 +26,14 @@ and Control while the wider profiling work continues.
 - `architecture` owns shared diagrams/contracts and decisions. `soc` owns hardware composition and the consolidated pinned integration
   workspace; it is not an extra active team. The former `accelerator` workspace
   is consolidated into SoC.
-- `planning` keeps this map and the historical plan. These seven active-team
-  homes plus `soc` and `planning` form nine active core repositories.
+- Compute, control and memory share `rtl`; their assignments remain separate.
+- `planning` keeps this map and the historical plan. Seven active teams share
+  five implementation/specification repositories. Together with `soc` and
+  `planning`, there are seven active core repositories.
 
 ## Before contributing
 
-All nine active core repositories are public. Main requires one code-owner approval
+All seven active core repositories are public. Main requires one code-owner approval
 from @abhinavnandwani, with admin bypass enabled. Accept any pending invitation,
 check branch push access, and work through PRs for review.
 
