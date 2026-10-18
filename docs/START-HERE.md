@@ -8,7 +8,7 @@ No additional team assignment is created here. Support the [current seven-team w
 
 1. Use docs/team-start.md for the current seven-team assignments and repo links. The historical eleven-charter snapshot is not the current organization.
 2. Update accepted decisions and current status with links to owning repos. Preserve original recorded sources and distinguish analytical budgets from measured results.
-3. Edit plan sources and run python3 build.py for generated plan changes. Do not hand-edit generated PLAN.md, index.html or hash records.
+3. Edit plan sources and run `uv run --locked python build.py` for generated plan changes. Do not hand-edit generated PLAN.md, index.html or hash records.
 
 ## Starting evidence
 

@@ -31,11 +31,16 @@ historical context. The eleven-charter snapshot is not today's team structure.
 ```sh
 gh repo clone SiliconBadgers/planning
 cd planning
-python3 build.py
-python3 serve.py
+uv sync --locked
+uv run --locked python build.py
+uv run --locked python serve.py
 ```
 
-Python 3.11+ is sufficient; no model weights or network are needed for the build.
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) 0.12.23 or
+newer first. uv uses an available Python 3.11+ interpreter or downloads a
+compatible one when needed. The project has no third-party Python packages;
+once Python and the environment are available, the build needs no network or
+model weights.
 The server binds to 127.0.0.1 only. Edit the source Markdown or reader assets, run
-`build.py`, and include regenerated PLAN.md, index.html, budgets and hashes in
-the PR. Preserve provenance in repository-snapshot.json and sources/.
+`uv run --locked python build.py`, and include regenerated PLAN.md, index.html,
+budgets and hashes in the PR. Preserve provenance in repository-snapshot.json and sources/.
